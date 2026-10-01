@@ -1,0 +1,29 @@
+{
+  "name": "campus-navigator-fullstack",
+  "version": "1.0.0",
+  "description": "Campus Navigator Full-Stack Web Application (Hackathon Problem Statement #19)",
+  "main": "backend/src/server.js",
+  "scripts": {
+    "start": "node backend/src/server.js",
+    "dev": "nodemon backend/src/server.js"
+  },
+  "keywords": [
+    "campus-navigator",
+    "leaflet",
+    "express",
+    "astar",
+    "charusat"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "jest": "^30.5.2",
+    "nodemon": "^3.1.0",
+    "supertest": "^7.3.0"
+  }
+}
