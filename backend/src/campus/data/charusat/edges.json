@@ -145,6 +145,17 @@
   },
 
   {
+    "id": "e_a6_ent_lobby",
+    "source": "node_ext_a6_entrance",
+    "target": "node_a6_f0_lobby",
+    "distance_meters": 10.0,
+    "edge_type": "entrance",
+    "accessible": true,
+    "has_stairs": false,
+    "is_bidirectional": true,
+    "verification_status": "UNVERIFIED"
+  },
+  {
     "id": "e_a6_ent_ramp",
     "source": "node_ext_a6_entrance",
     "target": "node_a6_f0_ramp",
