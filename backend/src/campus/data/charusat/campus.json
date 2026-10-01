@@ -1,0 +1,11 @@
+{
+  "id": "charusat",
+  "name": "Charotar University of Science and Technology",
+  "code": "CHARUSAT",
+  "description": "CHARUSAT Campus - Changa, Gujarat, India",
+  "coordinates": {
+    "lat": 22.5995,
+    "lng": 72.8205
+  },
+  "verification_status": "VERIFIED"
+}

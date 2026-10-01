@@ -1,0 +1,280 @@
+[
+  {
+    "id": "e_gate_to_a5",
+    "source": "node_ext_main_gate",
+    "target": "node_ext_a5_entrance",
+    "distance_meters": 75.0,
+    "edge_type": "outdoor_path",
+    "accessible": true,
+    "has_stairs": false,
+    "is_bidirectional": true,
+    "verification_status": "VERIFIED"
+  },
+  {
+    "id": "e_gate_to_a6",
+    "source": "node_ext_main_gate",
+    "target": "node_ext_a6_entrance",
+    "distance_meters": 120.0,
+    "edge_type": "outdoor_path",
+    "accessible": true,
+    "has_stairs": false,
+    "is_bidirectional": true,
+    "verification_status": "VERIFIED"
+  },
+  {
+    "id": "e_a5_to_a6",
+    "source": "node_ext_a5_entrance",
+    "target": "node_ext_a6_entrance",
+    "distance_meters": 65.0,
+    "edge_type": "outdoor_path",
+    "accessible": true,
+    "has_stairs": false,
+    "is_bidirectional": true,
+    "verification_status": "VERIFIED"
+  },
+  {
+    "id": "e_a6_to_a7",
+    "source": "node_ext_a6_entrance",
+    "target": "node_ext_a7_entrance",
+    "distance_meters": 40.0,
+    "edge_type": "outdoor_path",
+    "accessible": true,
+    "has_stairs": false,
+    "is_bidirectional": true,
+    "verification_status": "VERIFIED"
+  },
+
+  {
+    "id": "e_a5_ent_lobby",
+    "source": "node_ext_a5_entrance",
+    "target": "node_a5_f0_lobby",
+    "distance_meters": 10.0,
+    "edge_type": "entrance",
+    "accessible": true,
+    "has_stairs": false,
+    "is_bidirectional": true,
+    "verification_status": "UNVERIFIED"
+  },
+  {
+    "id": "e_a5_f0_lobby_stairs",
+    "source": "node_a5_f0_lobby",
+    "target": "node_a5_f0_stairs",
+    "distance_meters": 8.0,
+    "edge_type": "corridor",
+    "accessible": true,
+    "has_stairs": false,
+    "is_bidirectional": true,
+    "verification_status": "UNVERIFIED"
+  },
+  {
+    "id": "e_a5_f0_lobby_elevator",
+    "source": "node_a5_f0_lobby",
+    "target": "node_a5_f0_elevator",
+    "distance_meters": 12.0,
+    "edge_type": "corridor",
+    "accessible": true,
+    "has_stairs": false,
+    "is_bidirectional": true,
+    "verification_status": "UNVERIFIED"
+  },
+  {
+    "id": "e_a5_f0_lobby_lab1",
+    "source": "node_a5_f0_lobby",
+    "target": "node_a5_f0_lab1",
+    "distance_meters": 15.0,
+    "edge_type": "corridor",
+    "accessible": true,
+    "has_stairs": false,
+    "is_bidirectional": true,
+    "verification_status": "UNVERIFIED"
+  },
+  {
+    "id": "e_a5_stairs_f0_f1",
+    "source": "node_a5_f0_stairs",
+    "target": "node_a5_f1_stairs",
+    "distance_meters": 18.0,
+    "edge_type": "stairs",
+    "accessible": false,
+    "has_stairs": true,
+    "is_bidirectional": true,
+    "verification_status": "UNVERIFIED"
+  },
+  {
+    "id": "e_a5_elevator_f0_f1",
+    "source": "node_a5_f0_elevator",
+    "target": "node_a5_f1_elevator",
+    "distance_meters": 15.0,
+    "edge_type": "elevator",
+    "accessible": true,
+    "has_stairs": false,
+    "is_bidirectional": true,
+    "verification_status": "UNVERIFIED"
+  },
+  {
+    "id": "e_a5_f1_elevator_corr",
+    "source": "node_a5_f1_elevator",
+    "target": "node_a5_f1_corr1",
+    "distance_meters": 6.0,
+    "edge_type": "corridor",
+    "accessible": true,
+    "has_stairs": false,
+    "is_bidirectional": true,
+    "verification_status": "UNVERIFIED"
+  },
+  {
+    "id": "e_a5_f1_stairs_corr",
+    "source": "node_a5_f1_stairs",
+    "target": "node_a5_f1_corr1",
+    "distance_meters": 8.0,
+    "edge_type": "corridor",
+    "accessible": true,
+    "has_stairs": false,
+    "is_bidirectional": true,
+    "verification_status": "UNVERIFIED"
+  },
+  {
+    "id": "e_a5_f1_corr_r501",
+    "source": "node_a5_f1_corr1",
+    "target": "node_a5_f1_room501",
+    "distance_meters": 14.0,
+    "edge_type": "corridor",
+    "accessible": true,
+    "has_stairs": false,
+    "is_bidirectional": true,
+    "verification_status": "UNVERIFIED"
+  },
+
+  {
+    "id": "e_a6_ent_ramp",
+    "source": "node_ext_a6_entrance",
+    "target": "node_a6_f0_ramp",
+    "distance_meters": 6.0,
+    "edge_type": "ramp",
+    "accessible": true,
+    "has_stairs": false,
+    "is_bidirectional": true,
+    "verification_status": "UNVERIFIED"
+  },
+  {
+    "id": "e_a6_ramp_lobby",
+    "source": "node_a6_f0_ramp",
+    "target": "node_a6_f0_lobby",
+    "distance_meters": 8.0,
+    "edge_type": "corridor",
+    "accessible": true,
+    "has_stairs": false,
+    "is_bidirectional": true,
+    "verification_status": "UNVERIFIED"
+  },
+  {
+    "id": "e_a6_f0_lobby_stairs",
+    "source": "node_a6_f0_lobby",
+    "target": "node_a6_f0_stairs",
+    "distance_meters": 10.0,
+    "edge_type": "corridor",
+    "accessible": true,
+    "has_stairs": false,
+    "is_bidirectional": true,
+    "verification_status": "UNVERIFIED"
+  },
+  {
+    "id": "e_a6_f0_lobby_elevator",
+    "source": "node_a6_f0_lobby",
+    "target": "node_a6_f0_elevator",
+    "distance_meters": 12.0,
+    "edge_type": "corridor",
+    "accessible": true,
+    "has_stairs": false,
+    "is_bidirectional": true,
+    "verification_status": "UNVERIFIED"
+  },
+
+  {
+    "id": "e_a7_ent_lobby",
+    "source": "node_ext_a7_entrance",
+    "target": "node_a7_f0_lobby",
+    "distance_meters": 10.0,
+    "edge_type": "entrance",
+    "accessible": true,
+    "has_stairs": false,
+    "is_bidirectional": true,
+    "verification_status": "UNVERIFIED"
+  },
+  {
+    "id": "e_a7_lobby_stairs",
+    "source": "node_a7_f0_lobby",
+    "target": "node_a7_f0_stairs",
+    "distance_meters": 8.0,
+    "edge_type": "corridor",
+    "accessible": true,
+    "has_stairs": false,
+    "is_bidirectional": true,
+    "verification_status": "UNVERIFIED"
+  },
+  {
+    "id": "e_a7_lobby_elevator",
+    "source": "node_a7_f0_lobby",
+    "target": "node_a7_f0_elevator",
+    "distance_meters": 10.0,
+    "edge_type": "corridor",
+    "accessible": true,
+    "has_stairs": false,
+    "is_bidirectional": true,
+    "verification_status": "UNVERIFIED"
+  },
+  {
+    "id": "e_a7_stairs_f0_f2",
+    "source": "node_a7_f0_stairs",
+    "target": "node_a7_f2_stairs",
+    "distance_meters": 22.0,
+    "edge_type": "stairs",
+    "accessible": false,
+    "has_stairs": true,
+    "is_bidirectional": true,
+    "verification_status": "UNVERIFIED"
+  },
+  {
+    "id": "e_a7_elevator_f0_f2",
+    "source": "node_a7_f0_elevator",
+    "target": "node_a7_f2_elevator",
+    "distance_meters": 30.0,
+    "edge_type": "elevator",
+    "accessible": true,
+    "has_stairs": false,
+    "is_bidirectional": true,
+    "verification_status": "UNVERIFIED"
+  },
+  {
+    "id": "e_a7_f2_stairs_corr",
+    "source": "node_a7_f2_stairs",
+    "target": "node_a7_f2_corr_b",
+    "distance_meters": 12.0,
+    "edge_type": "corridor",
+    "accessible": true,
+    "has_stairs": false,
+    "is_bidirectional": true,
+    "verification_status": "UNVERIFIED"
+  },
+  {
+    "id": "e_a7_f2_elevator_corr",
+    "source": "node_a7_f2_elevator",
+    "target": "node_a7_f2_corr_b",
+    "distance_meters": 15.0,
+    "edge_type": "corridor",
+    "accessible": true,
+    "has_stairs": false,
+    "is_bidirectional": true,
+    "verification_status": "UNVERIFIED"
+  },
+  {
+    "id": "e_a7_f2_corr_r638",
+    "source": "node_a7_f2_corr_b",
+    "target": "node_a7_f2_r638",
+    "distance_meters": 18.0,
+    "edge_type": "corridor",
+    "accessible": true,
+    "has_stairs": false,
+    "is_bidirectional": true,
+    "verification_status": "UNVERIFIED"
+  }
+]

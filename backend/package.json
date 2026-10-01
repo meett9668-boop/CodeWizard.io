@@ -1,0 +1,29 @@
+{
+  "name": "campus-navigator-backend",
+  "version": "1.0.0",
+  "description": "Backend service for Campus Navigator (Hackathon Problem Statement #19)",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "keywords": [
+    "campus-navigator",
+    "pathfinding",
+    "graph",
+    "navigation",
+    "express"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "jest": "^30.5.2",
+    "nodemon": "^3.1.0",
+    "supertest": "^7.3.0"
+  }
+}

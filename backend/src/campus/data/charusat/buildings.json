@@ -1,0 +1,41 @@
+[
+  {
+    "id": "bldg_a5",
+    "campus_id": "charusat",
+    "code": "A5",
+    "name": "DEPSTAR",
+    "description": "Devang Patel Institute of Advance Technology and Research",
+    "type": "academic",
+    "coordinates": {
+      "lat": 22.5992,
+      "lng": 72.8201
+    },
+    "verification_status": "VERIFIED"
+  },
+  {
+    "id": "bldg_a6",
+    "campus_id": "charusat",
+    "code": "A6",
+    "name": "CSPIT - Block 1",
+    "description": "Chandubhai S Patel Institute of Technology - Wing 1",
+    "type": "academic",
+    "coordinates": {
+      "lat": 22.5996,
+      "lng": 72.8206
+    },
+    "verification_status": "VERIFIED"
+  },
+  {
+    "id": "bldg_a7",
+    "campus_id": "charusat",
+    "code": "A7",
+    "name": "CSPIT - Block 2",
+    "description": "Chandubhai S Patel Institute of Technology - Wing 2",
+    "type": "academic",
+    "coordinates": {
+      "lat": 22.5998,
+      "lng": 72.8209
+    },
+    "verification_status": "VERIFIED"
+  }
+]

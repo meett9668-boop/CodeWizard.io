@@ -1,0 +1,301 @@
+[
+  {
+    "id": "node_ext_main_gate",
+    "building_id": null,
+    "floor": 0,
+    "name": "Main Campus Entrance Gate",
+    "type": "outdoor_gate",
+    "coordinates": {
+      "lat": 22.5988,
+      "lng": 72.8195,
+      "floor_z": 0
+    },
+    "verification_status": "VERIFIED"
+  },
+  {
+    "id": "node_ext_a5_entrance",
+    "building_id": "bldg_a5",
+    "floor": 0,
+    "name": "DEPSTAR Main Entrance (A5)",
+    "type": "entrance",
+    "coordinates": {
+      "lat": 22.5992,
+      "lng": 72.8201,
+      "floor_z": 0
+    },
+    "verification_status": "VERIFIED"
+  },
+  {
+    "id": "node_a5_f0_lobby",
+    "building_id": "bldg_a5",
+    "floor": 0,
+    "name": "A5 Ground Lobby",
+    "type": "corridor_junction",
+    "coordinates": {
+      "lat": 22.59925,
+      "lng": 72.82015,
+      "floor_z": 0
+    },
+    "verification_status": "UNVERIFIED"
+  },
+  {
+    "id": "node_a5_f0_stairs",
+    "building_id": "bldg_a5",
+    "floor": 0,
+    "name": "A5 Central Staircase (Ground)",
+    "type": "stairs",
+    "coordinates": {
+      "lat": 22.5993,
+      "lng": 72.8202,
+      "floor_z": 0
+    },
+    "verification_status": "UNVERIFIED"
+  },
+  {
+    "id": "node_a5_f0_elevator",
+    "building_id": "bldg_a5",
+    "floor": 0,
+    "name": "A5 Elevator Core (Ground)",
+    "type": "elevator",
+    "coordinates": {
+      "lat": 22.59928,
+      "lng": 72.82022,
+      "floor_z": 0
+    },
+    "verification_status": "UNVERIFIED"
+  },
+  {
+    "id": "node_a5_f0_lab1",
+    "building_id": "bldg_a5",
+    "floor": 0,
+    "name": "A5 Software Engineering Lab 1",
+    "type": "lab",
+    "coordinates": {
+      "lat": 22.59935,
+      "lng": 72.82025,
+      "floor_z": 0
+    },
+    "verification_status": "UNVERIFIED"
+  },
+  {
+    "id": "node_a5_f1_elevator",
+    "building_id": "bldg_a5",
+    "floor": 1,
+    "name": "A5 Elevator Core (Floor 1)",
+    "type": "elevator",
+    "coordinates": {
+      "lat": 22.59928,
+      "lng": 72.82022,
+      "floor_z": 1
+    },
+    "verification_status": "UNVERIFIED"
+  },
+  {
+    "id": "node_a5_f1_stairs",
+    "building_id": "bldg_a5",
+    "floor": 1,
+    "name": "A5 Central Staircase (Floor 1)",
+    "type": "stairs",
+    "coordinates": {
+      "lat": 22.5993,
+      "lng": 72.8202,
+      "floor_z": 1
+    },
+    "verification_status": "UNVERIFIED"
+  },
+  {
+    "id": "node_a5_f1_corr1",
+    "building_id": "bldg_a5",
+    "floor": 1,
+    "name": "A5 Floor 1 Main Corridor",
+    "type": "corridor_junction",
+    "coordinates": {
+      "lat": 22.59932,
+      "lng": 72.82023,
+      "floor_z": 1
+    },
+    "verification_status": "UNVERIFIED"
+  },
+  {
+    "id": "node_a5_f1_room501",
+    "building_id": "bldg_a5",
+    "floor": 1,
+    "name": "Room 501 - Computer Network Lab",
+    "type": "lab",
+    "coordinates": {
+      "lat": 22.59938,
+      "lng": 72.82028,
+      "floor_z": 1
+    },
+    "verification_status": "UNVERIFIED"
+  },
+  {
+    "id": "node_ext_a6_entrance",
+    "building_id": "bldg_a6",
+    "floor": 0,
+    "name": "CSPIT Block 1 Main Entrance (A6)",
+    "type": "entrance",
+    "coordinates": {
+      "lat": 22.5996,
+      "lng": 72.8206,
+      "floor_z": 0
+    },
+    "verification_status": "VERIFIED"
+  },
+  {
+    "id": "node_a6_f0_lobby",
+    "building_id": "bldg_a6",
+    "floor": 0,
+    "name": "A6 Ground Lobby",
+    "type": "corridor_junction",
+    "coordinates": {
+      "lat": 22.59963,
+      "lng": 72.82063,
+      "floor_z": 0
+    },
+    "verification_status": "UNVERIFIED"
+  },
+  {
+    "id": "node_a6_f0_ramp",
+    "building_id": "bldg_a6",
+    "floor": 0,
+    "name": "A6 Ground Accessible Ramp",
+    "type": "ramp",
+    "coordinates": {
+      "lat": 22.59961,
+      "lng": 72.82061,
+      "floor_z": 0
+    },
+    "verification_status": "UNVERIFIED"
+  },
+  {
+    "id": "node_a6_f0_stairs",
+    "building_id": "bldg_a6",
+    "floor": 0,
+    "name": "A6 Main Staircase (Ground)",
+    "type": "stairs",
+    "coordinates": {
+      "lat": 22.59967,
+      "lng": 72.82068,
+      "floor_z": 0
+    },
+    "verification_status": "UNVERIFIED"
+  },
+  {
+    "id": "node_a6_f0_elevator",
+    "building_id": "bldg_a6",
+    "floor": 0,
+    "name": "A6 Elevator (Ground)",
+    "type": "elevator",
+    "coordinates": {
+      "lat": 22.59965,
+      "lng": 72.82065,
+      "floor_z": 0
+    },
+    "verification_status": "UNVERIFIED"
+  },
+  {
+    "id": "node_ext_a7_entrance",
+    "building_id": "bldg_a7",
+    "floor": 0,
+    "name": "CSPIT Block 2 Entrance (A7)",
+    "type": "entrance",
+    "coordinates": {
+      "lat": 22.5998,
+      "lng": 72.8209,
+      "floor_z": 0
+    },
+    "verification_status": "VERIFIED"
+  },
+  {
+    "id": "node_a7_f0_lobby",
+    "building_id": "bldg_a7",
+    "floor": 0,
+    "name": "A7 Ground Lobby",
+    "type": "corridor_junction",
+    "coordinates": {
+      "lat": 22.59982,
+      "lng": 72.82092,
+      "floor_z": 0
+    },
+    "verification_status": "UNVERIFIED"
+  },
+  {
+    "id": "node_a7_f0_elevator",
+    "building_id": "bldg_a7",
+    "floor": 0,
+    "name": "A7 Main Elevator (Ground)",
+    "type": "elevator",
+    "coordinates": {
+      "lat": 22.59984,
+      "lng": 72.82094,
+      "floor_z": 0
+    },
+    "verification_status": "UNVERIFIED"
+  },
+  {
+    "id": "node_a7_f0_stairs",
+    "building_id": "bldg_a7",
+    "floor": 0,
+    "name": "A7 Stairwell (Ground)",
+    "type": "stairs",
+    "coordinates": {
+      "lat": 22.59986,
+      "lng": 72.82096,
+      "floor_z": 0
+    },
+    "verification_status": "UNVERIFIED"
+  },
+  {
+    "id": "node_a7_f2_elevator",
+    "building_id": "bldg_a7",
+    "floor": 2,
+    "name": "A7 Main Elevator (Floor 2)",
+    "type": "elevator",
+    "coordinates": {
+      "lat": 22.59984,
+      "lng": 72.82094,
+      "floor_z": 2
+    },
+    "verification_status": "UNVERIFIED"
+  },
+  {
+    "id": "node_a7_f2_stairs",
+    "building_id": "bldg_a7",
+    "floor": 2,
+    "name": "A7 Stairwell (Floor 2)",
+    "type": "stairs",
+    "coordinates": {
+      "lat": 22.59986,
+      "lng": 72.82096,
+      "floor_z": 2
+    },
+    "verification_status": "UNVERIFIED"
+  },
+  {
+    "id": "node_a7_f2_corr_b",
+    "building_id": "bldg_a7",
+    "floor": 2,
+    "name": "A7 Floor 2 Corridor B",
+    "type": "corridor_junction",
+    "coordinates": {
+      "lat": 22.59989,
+      "lng": 72.82098,
+      "floor_z": 2
+    },
+    "verification_status": "UNVERIFIED"
+  },
+  {
+    "id": "node_a7_f2_r638",
+    "building_id": "bldg_a7",
+    "floor": 2,
+    "name": "Room 638 - Advanced Computing Lab",
+    "type": "room",
+    "coordinates": {
+      "lat": 22.59995,
+      "lng": 72.82105,
+      "floor_z": 2
+    },
+    "verification_status": "UNVERIFIED"
+  }
+]
