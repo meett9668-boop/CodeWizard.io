@@ -413,6 +413,7 @@
 
             openSet.push(start);
             drawGrid();
+            updateStats(0);
         }
 
         function drawGrid() {
@@ -444,6 +445,12 @@
             return Math.abs(a.i - b.i) + Math.abs(a.j - b.j);
         }
 
+        function updateStats(executionTime = null) {
+            const statsEl = document.getElementById('vis-stats');
+            const timeVal = executionTime !== null ? executionTime : (startTime ? Math.round(performance.now() - startTime) : 0);
+            statsEl.innerHTML = `Nodes Explored: <strong>${nodesExplored}</strong> &middot; Path Length: <strong>${path.length}</strong> &middot; Time: <strong>${timeVal} ms</strong>`;
+        }
+
         function aStarStep() {
             if (!isRunning) return;
 
@@ -457,12 +464,14 @@
                 if (current === end) {
                     isRunning = false;
                     let temp = current;
-                    path = [];
+                    path = [temp];
                     while (temp.previous) {
                         path.push(temp.previous);
                         temp = temp.previous;
                     }
+                    const totalTime = Math.round(performance.now() - startTime);
                     drawGrid();
+                    updateStats(totalTime);
                     return;
                 }
 
@@ -503,15 +512,20 @@
                 }
 
                 drawGrid();
-                setTimeout(aStarStep, 40);
+                updateStats();
+                setTimeout(aStarStep, 35);
+            } else {
+                isRunning = false;
+                updateStats(Math.round(performance.now() - startTime));
             }
         }
 
         document.getElementById('btn-reset').addEventListener('click', initGrid);
         document.getElementById('btn-run').addEventListener('click', () => {
             if (isRunning) return;
-            if (openSet.length === 0) initGrid();
+            initGrid();
             isRunning = true;
+            startTime = performance.now();
             aStarStep();
         });
 
