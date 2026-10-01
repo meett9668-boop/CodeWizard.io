@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buildings - CAMPUSLY</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-white: #FFFFFF;
+      --bg-offwhite: #F8F7F4;
+      --color-dark: #1A1A1A;
+      --color-accent: #C9622F;
+      --color-border: #E8E4DE;
+      --color-muted: #666666;
+      --font-body: 'Inter', sans-serif;
+      --font-heading: 'Playfair Display', serif;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+      --transition: all 0.3s ease;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--color-dark);
+      background-color: var(--bg-white);
+      line-height: 1.6;
+    }
+
+    .navbar {
+      height: 64px;
+      background: var(--bg-white);
+      border-bottom: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .nav-brand {
+      font-family: var(--font-heading);
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-decoration: none;
+      color: var(--color-dark);
+    }
+
+    .nav-links { display: flex; gap: 32px; }
+
+    .nav-link {
+      font-size: 14px;
+      text-decoration: none;
+      color: var(--color-muted);
+      font-weight: 500;
+      transition: var(--transition);
+      padding: 8px 0;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: var(--color-dark);
+      border-bottom: 1px solid var(--color-dark);
+    }
+
+    .btn {
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: 500;
+      border-radius: 4px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--color-dark);
+      color: var(--color-dark);
+    }
+
+    .btn-outline:hover {
+      background: var(--color-dark);
+      color: var(--bg-white);
+    }
+
+    .btn-filled {
+      background: var(--color-dark);
+      border: 1px solid var(--color-dark);
+      color: var(--bg-white);
+    }
+
+    .btn-filled:hover { background: #333; }
+
+    .page-header {
+      background: var(--bg-offwhite);
+      padding: 80px 32px;
+      text-align: center;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .header-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--color-muted);
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .header-title {
+      font-family: var(--font-heading);
+      font-size: 48px;
+      font-weight: 400;
+      margin-bottom: 24px;
+    }
+
+    .header-subtitle {
+      font-size: 18px;
+      color: var(--color-muted);
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 64px 32px;
+    }
+
+    .featured-card {
+      display: flex;
+      border: 1px solid var(--color-border);
+      border-radius: 4px;
+      background: var(--bg-white);
+      margin-bottom: 64px;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .featured-card:hover {
+      box-shadow: var(--shadow-sm);
+      border-color: var(--color-dark);
+    }
+
+    .featured-img {
+      flex: 1;
+      background: var(--bg-offwhite);
+      padding: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-right: 1px solid var(--color-border);
+    }
+
+    .featured-content {
+      flex: 1.2;
+      padding: 48px;
+      position: relative;
+    }
+
+    .badge-terracotta {
+      display: inline-block;
+      background: var(--color-accent);
+      color: var(--bg-white);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 4px;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .bldg-title {
+      font-family: var(--font-heading);
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+
+    .bldg-fullname {
+      font-size: 15px;
+      color: var(--color-muted);
+      margin-bottom: 24px;
+    }
+
+    .bldg-depts {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 24px;
+      letter-spacing: 1px;
+    }
+
+    .bldg-stats {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 24px;
+      font-size: 14px;
+      color: var(--color-muted);
+    }
+
+    .bldg-desc {
+      font-size: 15px;
+      margin-bottom: 32px;
+      line-height: 1.8;
+    }
+
+    .bldg-actions { display: flex; gap: 16px; }
+
+    .bldg-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-bottom: 80px;
+    }
+
+    .grid-card {
+      border: 1px solid var(--color-border);
+      border-radius: 4px;
+      padding: 32px;
+      background: var(--bg-white);
+      transition: var(--transition);
+    }
+
+    .grid-card:hover {
+      border-color: var(--color-accent);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .grid-badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 8px;
+      border: 1px solid var(--color-dark);
+      border-radius: 4px;
+      display: inline-block;
+      margin-bottom: 16px;
+    }
+
+    .grid-title {
+      font-family: var(--font-heading);
+      font-size: 24px;
+      margin-bottom: 12px;
+    }
+
+    .grid-depts {
+      font-size: 13px;
+      color: var(--color-muted);
+      margin-bottom: 24px;
+    }
+
+    .facilities-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .pill {
+      font-size: 11px;
+      padding: 4px 8px;
+      background: var(--bg-offwhite);
+      border-radius: 4px;
+      color: var(--color-muted);
+    }
+
+    .room-browser {
+      background: var(--bg-offwhite);
+      padding: 64px 32px;
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .browser-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .browser-title {
+      font-family: var(--font-heading);
+      font-size: 32px;
+      margin-bottom: 16px;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--color-border);
+      padding-bottom: 16px;
+    }
+
+    .tab-btn {
+      background: none;
+      border: none;
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--color-muted);
+      cursor: pointer;
+      padding: 8px 16px;
+      transition: var(--transition);
+    }
+
+    .tab-btn:hover, .tab-btn.active { color: var(--color-dark); }
+    .tab-btn.active { position: relative; }
+    .tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -17px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--color-dark);
+    }
+
+    .tab-content { display: none; max-width: 800px; margin: 0 auto; }
+    .tab-content.active { display: block; }
+
+    .room-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 16px;
+    }
+
+    .room-chip {
+      background: var(--bg-white);
+      border: 1px solid var(--color-border);
+      padding: 16px;
+      text-align: center;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .room-chip:hover {
+      border-color: var(--color-dark);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .room-chip.highlight {
+      background: var(--color-accent);
+      color: var(--bg-white);
+      border-color: var(--color-accent);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-brand">CAMPUSLY</a>
+    <div class="nav-links">
+      <a href="navigate.html" class="nav-link">Navigate</a>
+      <a href="buildings.html" class="nav-link active">Buildings</a>
+      <a href="accessibility.html" class="nav-link">Accessibility</a>
+      <a href="about.html" class="nav-link">About</a>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="page-header">
+    <span class="header-label">Campus Buildings</span>
+    <h1 class="header-title">Explore CHARUSAT Campus</h1>
+    <p class="header-subtitle">Focus prototype buildings: A5 DEPSTAR, A6 CSPIT, A7 CSPIT. Complete indoor destination mapping.</p>
+  </header>
+
+  <main class="container">
+    
+    <!-- Featured Building A7 -->
+    <article class="featured-card">
+      <div class="featured-img">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <rect x="40" y="40" width="120" height="160" fill="none" stroke="#1A1A1A" stroke-width="2"/>
+          <line x1="40" y1="70" x2="160" y2="70" stroke="#1A1A1A" stroke-width="2"/>
+          <line x1="40" y1="100" x2="160" y2="100" stroke="#1A1A1A" stroke-width="2"/>
+          <line x1="40" y1="130" x2="160" y2="130" stroke="#1A1A1A" stroke-width="2"/>
+          <line x1="40" y1="160" x2="160" y2="160" stroke="#1A1A1A" stroke-width="2"/>
+          <rect x="90" y="160" width="20" height="40" fill="none" stroke="#1A1A1A" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="featured-content">
+        <span class="badge-terracotta">A7</span>
+        <h2 class="bldg-title">CSPIT Block 2 (A7)</h2>
+        <div class="bldg-fullname">Chandubhai S. Patel Institute of Technology - Wing 2</div>
+        <div class="bldg-depts">Computer Engineering · IT · EC</div>
+        
+        <div class="bldg-stats">
+          <span>3 Floors</span>
+          <span>7 Dest. Indexed</span>
+          <span>Verified Graph</span>
+        </div>
+        
+        <p class="bldg-desc">
+          Houses Computer Engineering and Information Technology laboratories including Room 638 (Advanced Computing Lab), DBMS Lab, OS Lab, and Graphics Lab.
+        </p>
+        
+        <div class="facilities-pills" style="margin-bottom: 32px;">
+          <span class="pill">Elevators ✓</span>
+          <span class="pill">Ramps ✓</span>
+          <span class="pill">Staircases ✓</span>
+          <span class="pill">Labs ✓</span>
+        </div>
+        
+        <div class="bldg-actions">
+          <a href="navigate.html?to=dest_a7_r638" class="btn btn-filled">Navigate Here →</a>
+          <a href="#room-browser" class="btn btn-outline">View Rooms</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- Other Buildings Grid -->
+    <div class="bldg-grid">
+      <!-- A6 -->
+      <div class="grid-card">
+        <span class="grid-badge">A6</span>
+        <h3 class="grid-title">CSPIT Block 1 (A6)</h3>
+        <div class="grid-depts">Civil · Electrical · Mechanical</div>
+        <div class="facilities-pills">
+          <span class="pill">Main Auditorium</span>
+          <span class="pill">Heavy Structures Lab</span>
+          <span class="pill">Elevator</span>
+        </div>
+        <a href="navigate.html?to=node_ext_a6_entrance" class="btn btn-outline" style="width: 100%;">Navigate</a>
+      </div>
+
+      <!-- A5 -->
+      <div class="grid-card">
+        <span class="grid-badge">A5</span>
+        <h3 class="grid-title">DEPSTAR (A5)</h3>
+        <div class="grid-depts">Devang Patel Institute</div>
+        <div class="facilities-pills">
+          <span class="pill">Software Eng. Lab</span>
+          <span class="pill">Room 501 Network Lab</span>
+          <span class="pill">Seminar Hall</span>
+        </div>
+        <a href="navigate.html?to=dest_a5_r501" class="btn btn-outline" style="width: 100%;">Navigate</a>
+      </div>
+
+      <!-- Main Entrance Gate -->
+      <div class="grid-card">
+        <span class="grid-badge">GATE</span>
+        <h3 class="grid-title">Main Campus Entrance</h3>
+        <div class="grid-depts">CHARUSAT Gate</div>
+        <div class="facilities-pills">
+          <span class="pill">Outdoor Path Start</span>
+          <span class="pill">Verified Gate Node</span>
+        </div>
+        <a href="navigate.html?from=node_ext_main_gate" class="btn btn-outline" style="width: 100%;">Start Walk Here</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Room Browser Section -->
+  <section class="room-browser" id="room-browser">
+    <div class="browser-header">
+      <h2 class="browser-title">Room Browser: CHARUSAT Destinations</h2>
+      <p style="color: var(--color-muted);">Select building to view indexed rooms and labs.</p>
+    </div>
+    
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('tab-a7')">A7 CSPIT</button>
+      <button class="tab-btn" onclick="switchTab('tab-a6')">A6 CSPIT</button>
+      <button class="tab-btn" onclick="switchTab('tab-a5')">A5 DEPSTAR</button>
+    </div>
+
+    <!-- Tab Contents -->
+    <div id="tab-a7" class="tab-content active">
+      <div class="room-grid">
+        <div class="room-chip highlight" onclick="window.location.href='navigate.html?to=dest_a7_r638'">Room 638 (Advanced Lab)</div>
+        <div class="room-chip" onclick="window.location.href='navigate.html?to=dest_a7_r635'">Room 635 (Graphics Lab)</div>
+        <div class="room-chip" onclick="window.location.href='navigate.html?to=dest_a7_r636'">Room 636 (DBMS Lab)</div>
+        <div class="room-chip" onclick="window.location.href='navigate.html?to=dest_a7_r637'">Room 637 (OS Lab)</div>
+        <div class="room-chip" onclick="window.location.href='navigate.html?to=dest_a7_r612'">Room 612 (VLSI Lab)</div>
+        <div class="room-chip" onclick="window.location.href='navigate.html?to=dest_a7_r640'">Room 640 (Seminar Hall)</div>
+      </div>
+    </div>
+
+    <div id="tab-a6" class="tab-content">
+      <div class="room-grid">
+        <div class="room-chip" onclick="window.location.href='navigate.html?to=dest_a6_auditorium'">CSPIT Main Auditorium</div>
+        <div class="room-chip" onclick="window.location.href='navigate.html?to=dest_a6_civil_lab1'">Heavy Structures Lab</div>
+        <div class="room-chip" onclick="window.location.href='navigate.html?to=dest_a6_ee_lab2'">High Voltage EE Lab</div>
+        <div class="room-chip" onclick="window.location.href='navigate.html?to=dest_a6_r102'">Tutorial Room 102</div>
+      </div>
+    </div>
+
+    <div id="tab-a5" class="tab-content">
+      <div class="room-grid">
+        <div class="room-chip highlight" onclick="window.location.href='navigate.html?to=dest_a5_r501'">Room 501 (Network Lab)</div>
+        <div class="room-chip" onclick="window.location.href='navigate.html?to=dest_a5_lab1'">Software Eng. Lab 1</div>
+        <div class="room-chip" onclick="window.location.href='navigate.html?to=dest_a5_r502'">Room 502 (AI ML Lab)</div>
+        <div class="room-chip" onclick="window.location.href='navigate.html?to=dest_a5_r503'">Room 503 (Cloud Lab)</div>
+        <div class="room-chip" onclick="window.location.href='navigate.html?to=dest_a5_sem_hall'">DEPSTAR Seminar Hall</div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+      
+      event.target.classList.add('active');
+      document.getElementById(tabId).classList.add('active');
+    }
+  </script>
+</body>
+</html>

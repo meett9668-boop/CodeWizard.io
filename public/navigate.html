@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Navigate - CAMPUSLY</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    :root {
+      --bg-white: #FFFFFF;
+      --bg-offwhite: #F8F7F4;
+      --color-dark: #1A1A1A;
+      --color-accent: #C9622F; /* Terracotta */
+      --color-border: #E8E4DE;
+      --color-muted: #666666;
+      --font-body: 'Inter', sans-serif;
+      --font-heading: 'Playfair Display', serif;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body, html {
+      height: 100%;
+      font-family: var(--font-body);
+      color: var(--color-dark);
+      background-color: var(--bg-white);
+      overflow: hidden;
+    }
+
+    /* Navbar */
+    .navbar {
+      height: 64px;
+      background: var(--bg-white);
+      border-bottom: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      z-index: 1000;
+      position: relative;
+    }
+
+    .nav-brand {
+      font-family: var(--font-heading);
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-decoration: none;
+      color: var(--color-dark);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+    }
+
+    .nav-link {
+      font-size: 14px;
+      text-decoration: none;
+      color: var(--color-muted);
+      font-weight: 500;
+      transition: var(--transition);
+      padding: 8px 0;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: var(--color-dark);
+      border-bottom: 1px solid var(--color-dark);
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 16px;
+    }
+
+    .btn {
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: 500;
+      border-radius: 4px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--color-dark);
+      color: var(--color-dark);
+    }
+
+    .btn-outline:hover {
+      background: var(--color-dark);
+      color: var(--bg-white);
+    }
+
+    .btn-filled {
+      background: var(--color-dark);
+      border: 1px solid var(--color-dark);
+      color: var(--bg-white);
+    }
+
+    .btn-filled:hover {
+      background: #333;
+    }
+
+    /* Main Layout */
+    .workspace {
+      display: flex;
+      height: calc(100vh - 64px);
+    }
+
+    /* Left Panel */
+    .panel-left {
+      width: 320px;
+      background: var(--bg-white);
+      border-right: 1px solid var(--color-border);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      z-index: 10;
+    }
+
+    .panel-section {
+      padding: 24px;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .section-label {
+      font-family: var(--font-heading);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--color-muted);
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    /* Search Input */
+    .search-wrapper {
+      position: relative;
+      margin-bottom: 16px;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 12px 16px;
+      padding-right: 60px;
+      border: 1px solid var(--color-border);
+      border-radius: 4px;
+      font-family: var(--font-body);
+      font-size: 15px;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .search-input:focus {
+      border-color: var(--color-accent);
+    }
+
+    .kb-hint {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 11px;
+      color: var(--color-muted);
+      background: var(--bg-offwhite);
+      padding: 4px 6px;
+      border-radius: 4px;
+      border: 1px solid var(--color-border);
+    }
+
+    .category-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      font-size: 12px;
+      padding: 6px 12px;
+      border: 1px solid var(--color-border);
+      border-radius: 20px;
+      background: var(--bg-white);
+      color: var(--color-dark);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .chip:hover {
+      border-color: var(--color-dark);
+    }
+
+    .chip.active {
+      background: var(--color-accent);
+      color: var(--bg-white);
+      border-color: var(--color-accent);
+    }
+
+    /* From / To Form */
+    .routing-form {
+      position: relative;
+    }
+
+    .input-group {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .input-label {
+      width: 48px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .route-input {
+      flex: 1;
+      padding: 10px 12px;
+      border: 1px solid var(--color-border);
+      border-radius: 4px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      background: var(--bg-offwhite);
+      outline: none;
+    }
+
+    .route-input:focus {
+      border-color: var(--color-accent);
+      background: var(--bg-white);
+    }
+
+    .swap-btn {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--bg-white);
+      border: 1px solid var(--color-border);
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--color-dark);
+      font-size: 12px;
+    }
+
+    .quick-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .quick-btn {
+      font-size: 12px;
+      padding: 6px 10px;
+      border: 1px solid var(--color-border);
+      background: var(--bg-white);
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: var(--transition);
+    }
+
+    .quick-btn:hover {
+      background: var(--bg-offwhite);
+      border-color: var(--color-dark);
+    }
+
+    /* Route Options */
+    .route-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .route-card {
+      border: 1px solid var(--color-border);
+      border-radius: 4px;
+      padding: 16px;
+      background: var(--bg-white);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .route-card:hover {
+      box-shadow: var(--shadow-sm);
+    }
+
+    .route-card.selected {
+      border-left: 3px solid var(--color-accent);
+    }
+
+    .route-card.selected .route-title {
+      color: var(--color-accent);
+    }
+
+    .route-title {
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .route-meta {
+      font-size: 13px;
+      color: var(--color-muted);
+    }
+
+    /* Campus Alerts */
+    .alert-card {
+      background: var(--bg-offwhite);
+      border: 1px solid var(--color-border);
+      border-radius: 4px;
+      padding: 12px;
+      margin-bottom: 8px;
+      font-size: 13px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      position: relative;
+    }
+
+    .alert-dismiss {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--color-muted);
+    }
+
+    /* Next Class Widget */
+    .class-widget {
+      background: var(--bg-offwhite);
+      padding: 24px;
+      margin-top: auto;
+      border-top: 1px solid var(--color-border);
+    }
+
+    .class-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .class-details {
+      font-size: 13px;
+      color: var(--color-muted);
+      margin-bottom: 16px;
+    }
+
+    /* Map Area */
+    .map-container {
+      flex: 1;
+      position: relative;
+      background: #e5e5e5;
+    }
+
+    #map {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Floor Selector */
+    .floor-selector {
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--bg-white);
+      border: 1px solid var(--color-border);
+      border-radius: 20px;
+      padding: 8px 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      z-index: 1000;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .floor-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: none;
+      background: transparent;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .floor-btn:hover {
+      background: var(--bg-offwhite);
+    }
+
+    .floor-btn.active {
+      background: var(--color-dark);
+      color: var(--bg-white);
+    }
+
+    /* Right Panel */
+    .panel-right {
+      width: 320px;
+      background: var(--bg-offwhite);
+      border-left: 1px solid var(--color-border);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      z-index: 10;
+    }
+
+    /* Route Summary */
+    .summary-card {
+      background: var(--bg-white);
+      border: 1px solid var(--color-border);
+      padding: 20px;
+      border-radius: 4px;
+      margin-bottom: 24px;
+    }
+
+    .summary-locations {
+      font-size: 14px;
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+
+    .summary-stats {
+      font-size: 13px;
+      color: var(--color-muted);
+      margin-bottom: 16px;
+    }
+
+    .btn-full {
+      width: 100%;
+    }
+
+    /* Turn by turn */
+    .step-item {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .step-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 9px;
+      top: 24px;
+      bottom: -16px;
+      width: 1px;
+      background: var(--color-border);
+    }
+
+    .step-num {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      color: var(--color-accent);
+      font-size: 16px;
+      width: 20px;
+      flex-shrink: 0;
+    }
+
+    .step-content {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    /* Modals */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal {
+      background: var(--bg-white);
+      width: 400px;
+      border-radius: 4px;
+      border-top: 4px solid var(--color-accent);
+      box-shadow: var(--shadow-md);
+      padding: 32px;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: var(--color-muted);
+    }
+
+    .modal-title {
+      font-family: var(--font-heading);
+      font-size: 20px;
+      margin-bottom: 24px;
+    }
+
+    /* Search Results */
+    .search-results {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--bg-white);
+      border: 1px solid var(--color-border);
+      border-top: none;
+      box-shadow: var(--shadow-sm);
+      z-index: 100;
+      max-height: 250px;
+      overflow-y: auto;
+      display: none;
+    }
+    .search-result-item {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--color-border);
+      cursor: pointer;
+    }
+    .search-result-item:hover {
+      background: var(--bg-offwhite);
+    }
+    .res-name { font-weight: 500; font-size: 14px; }
+    .res-meta { font-size: 12px; color: var(--color-muted); margin-top: 4px; }
+
+    .badge-demo {
+      background: #FFFBEB;
+      border: 1px solid #FCD34D;
+      color: #D97706;
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-brand">CAMPUSLY</a>
+    <div class="nav-links">
+      <a href="navigate.html" class="nav-link active">Navigate</a>
+      <a href="buildings.html" class="nav-link">Buildings</a>
+      <a href="accessibility.html" class="nav-link">Accessibility</a>
+      <a href="about.html" class="nav-link">About</a>
+    </div>
+    <div class="nav-actions">
+      <button class="btn btn-outline" onclick="openModal('issueModal')">Report Issue</button>
+    </div>
+  </nav>
+
+  <!-- Workspace -->
+  <main class="workspace">
+    
+    <!-- Left Panel -->
+    <aside class="panel-left">
+      <!-- Search -->
+      <div class="panel-section">
+        <span class="section-label">Find Your Destination</span>
+        <div class="search-wrapper">
+          <input type="text" id="searchInput" class="search-input" placeholder="Search rooms (e.g. 638, DBMS, A7)...">
+          <span class="kb-hint">Ctrl+K</span>
+          <div class="search-results" id="searchResults"></div>
+        </div>
+        <div class="category-chips">
+          <span class="chip active" onclick="triggerSearch('A7')">A7 CSPIT</span>
+          <span class="chip" onclick="triggerSearch('A6')">A6 CSPIT</span>
+          <span class="chip" onclick="triggerSearch('A5')">A5 DEPSTAR</span>
+          <span class="chip" onclick="triggerSearch('Lab')">Labs</span>
+          <span class="chip" onclick="triggerSearch('Seminar')">Seminar Halls</span>
+        </div>
+      </div>
+
+      <!-- Routing Form -->
+      <div class="panel-section">
+        <span class="section-label">Directions</span>
+        <div class="routing-form">
+          <div class="input-group">
+            <span class="input-label">From</span>
+            <input type="text" class="route-input" id="inputFrom" value="Main Campus Entrance Gate" data-node-id="node_ext_main_gate">
+          </div>
+          <div class="input-group">
+            <span class="input-label">To</span>
+            <input type="text" class="route-input" id="inputTo" value="Room 638 - Advanced Computing Lab" data-node-id="dest_a7_r638">
+          </div>
+        </div>
+        <div class="quick-actions">
+          <button class="quick-btn" onclick="useMyLocation()">📍 My Location</button>
+          <button class="quick-btn" onclick="setFromNode('node_ext_main_gate', 'Main Campus Entrance Gate')">🚪 Main Gate</button>
+          <button class="quick-btn" onclick="setFromNode('node_ext_a5_entrance', 'A5 DEPSTAR Entrance')">🏢 A5 Ent</button>
+        </div>
+      </div>
+
+      <!-- Route Options -->
+      <div class="panel-section">
+        <span class="section-label">Route Mode</span>
+        <div class="route-cards">
+          <div class="route-card selected" id="card-shortest" onclick="setRouteMode('SHORTEST')">
+            <div class="route-title">⚡ Shortest Route</div>
+            <div class="route-meta">Optimized for physical distance & speed</div>
+          </div>
+          <div class="route-card" id="card-accessible" onclick="setRouteMode('ACCESSIBLE')">
+            <div class="route-title">♿ Step-Free Accessible</div>
+            <div class="route-meta">No stairs · Uses elevators & ramps</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Alerts -->
+      <div class="panel-section">
+        <span class="section-label">CHARUSAT Campus Status</span>
+        <div class="alert-card">
+          ♿ <span>Elevators operational in A6 & A7</span>
+        </div>
+        <div class="alert-card">
+          📍 <span>Prototype area: A5, A6, A7</span>
+        </div>
+      </div>
+
+      <!-- Next Class -->
+      <div class="class-widget">
+        <span class="section-label" style="margin-bottom: 8px;">Quick Navigation</span>
+        <div class="class-title">Advanced Computing Lab (Room 638)</div>
+        <div class="class-details">CSPIT Block 2 (A7) · Floor 2</div>
+        <button class="btn btn-outline" style="width:100%" onclick="setToNode('dest_a7_r638', 'Room 638 - Advanced Computing Lab')">Calculate Route →</button>
+      </div>
+    </aside>
+
+    <!-- Map Center -->
+    <section class="map-container">
+      <div id="map"></div>
+      
+      <!-- Floor Selector -->
+      <div class="floor-selector">
+        <button class="floor-btn" onclick="filterFloor(2)">2</button>
+        <button class="floor-btn" onclick="filterFloor(1)">1</button>
+        <button class="floor-btn active" onclick="filterFloor(0)">G</button>
+      </div>
+    </section>
+
+    <!-- Right Panel -->
+    <aside class="panel-right">
+      <div class="panel-section">
+        <span class="section-label">Active Route</span>
+        <div class="summary-card">
+          <div id="demoBadgeContainer"></div>
+          <div class="summary-locations" id="summaryLocations">
+            <strong>FROM:</strong> Main Campus Entrance Gate<br>
+            <strong>TO:</strong> Room 638 - Advanced Computing Lab
+          </div>
+          <div class="summary-stats" id="summaryStats">
+            Distance: -- | Time: -- | Mode: SHORTEST
+          </div>
+          <button class="btn btn-filled btn-full" onclick="calculateRouteAPI()">RE-CALCULATE ROUTE</button>
+        </div>
+      </div>
+
+      <div class="panel-section">
+        <span class="section-label">Turn-by-turn Steps</span>
+        <div id="stepsContainer">
+          <p style="font-size:13px; color:var(--color-muted);">Calculating initial route...</p>
+        </div>
+      </div>
+
+      <div class="panel-section">
+        <span class="section-label">Floor Transitions</span>
+        <div id="transitionsContainer" style="font-size:13px; color:var(--color-muted);">
+          No floor transitions required.
+        </div>
+      </div>
+    </aside>
+
+  </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    let currentMode = 'SHORTEST';
+    let currentFromNode = 'node_ext_main_gate';
+    let currentToNode = 'dest_a7_r638';
+    let routePolyline = null;
+    let mapMarkers = [];
+
+    // Map Initialization over CHARUSAT coordinates
+    const map = L.map('map', { zoomControl: false }).setView([22.5995, 72.8205], 18);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors',
+      maxZoom: 20
+    }).addTo(map);
+
+    L.control.zoom({ position: 'bottomleft' }).addTo(map);
+
+    // Initial Route Fetch
+    window.addEventListener('load', () => {
+      calculateRouteAPI();
+    });
+
+    // Real API Call to Express Backend
+    async function calculateRouteAPI() {
+      try {
+        const response = await fetch('/api/routes', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            from: currentFromNode,
+            to: currentToNode,
+            mode: currentMode
+          })
+        });
+
+        const data = await response.json();
+        if (!data.success) {
+          alert('Routing Error: ' + (data.error ? data.error.message : 'Unable to calculate route'));
+          return;
+        }
+
+        renderRouteOnMap(data.route);
+        renderInstructions(data.route);
+      } catch (err) {
+        console.error('[API Error]', err);
+      }
+    }
+
+    // Render Route Polylines and Markers
+    function renderRouteOnMap(route) {
+      if (routePolyline) map.removeLayer(routePolyline);
+      mapMarkers.forEach(m => map.removeLayer(m));
+      mapMarkers = [];
+
+      if (!route.polyline_coordinates || route.polyline_coordinates.length === 0) return;
+
+      const color = route.mode === 'ACCESSIBLE' ? '#10B981' : '#C9622F';
+      const isDemo = route.data_quality && route.data_quality.is_demo_route;
+
+      routePolyline = L.polyline(route.polyline_coordinates, {
+        color: color,
+        weight: 5,
+        opacity: 0.9,
+        dashArray: isDemo ? '8, 8' : null
+      }).addTo(map);
+
+      // Add Start Marker
+      const startCoord = route.polyline_coordinates[0];
+      const startMarker = L.circleMarker(startCoord, {
+        radius: 8,
+        fillColor: '#1A1A1A',
+        color: '#FFFFFF',
+        weight: 2,
+        fillOpacity: 1
+      }).addTo(map).bindPopup('Start: ' + route.origin.name);
+      mapMarkers.push(startMarker);
+
+      // Add Destination Marker
+      const endCoord = route.polyline_coordinates[route.polyline_coordinates.length - 1];
+      const endMarker = L.circleMarker(endCoord, {
+        radius: 8,
+        fillColor: color,
+        color: '#FFFFFF',
+        weight: 2,
+        fillOpacity: 1
+      }).addTo(map).bindPopup('Destination: ' + route.destination.name);
+      mapMarkers.push(endMarker);
+
+      map.fitBounds(routePolyline.getBounds(), { padding: [50, 50] });
+    }
+
+    // Render Instructions and Data Quality Badges
+    function renderInstructions(route) {
+      document.getElementById('summaryLocations').innerHTML = 
+        `<strong>FROM:</strong> ${route.origin.name}<br><strong>TO:</strong> ${route.destination.name}`;
+
+      document.getElementById('summaryStats').innerText = 
+        `Distance: ${route.distance_meters} m | Time: ${route.estimated_time_minutes} min | Mode: ${route.mode}`;
+
+      const demoBadge = document.getElementById('demoBadgeContainer');
+      if (route.data_quality && route.data_quality.is_demo_route) {
+        demoBadge.innerHTML = `<span class="badge-demo">⚠️ Prototype Route (Indoor location unverified)</span>`;
+      } else {
+        demoBadge.innerHTML = '';
+      }
+
+      // Steps
+      const stepsContainer = document.getElementById('stepsContainer');
+      stepsContainer.innerHTML = route.instructions.map((step, idx) => `
+        <div class="step-item">
+          <div class="step-num">${String(idx + 1).padStart(2, '0')}</div>
+          <div class="step-content">${step}</div>
+        </div>
+      `).join('');
+
+      // Floor Transitions
+      const transContainer = document.getElementById('transitionsContainer');
+      if (route.floor_transitions && route.floor_transitions.length > 0) {
+        transContainer.innerHTML = route.floor_transitions.map(t => `
+          <div style="margin-bottom:6px; font-weight:500; color:var(--color-dark);">
+            ${t.transition_type === 'elevator' ? '🛗 Elevator' : '🪜 Stairs'}: Floor ${t.from_floor} → Floor ${t.to_floor}
+          </div>
+        `).join('');
+      } else {
+        transContainer.innerHTML = 'No floor transitions required.';
+      }
+    }
+
+    // Backend Location Search API
+    const searchInput = document.getElementById('searchInput');
+    const searchResults = document.getElementById('searchResults');
+
+    searchInput.addEventListener('input', async (e) => {
+      const query = e.target.value.trim();
+      if (query.length < 1) {
+        searchResults.style.display = 'none';
+        return;
+      }
+
+      try {
+        const res = await fetch(`/api/locations/search?q=${encodeURIComponent(query)}`);
+        const data = await res.json();
+
+        if (data.success && data.locations.length > 0) {
+          searchResults.innerHTML = data.locations.map(item => `
+            <div class="search-result-item" onclick="setToNode('${item.node_id || item.id}', '${item.display_name}')">
+              <div class="res-name">${item.display_name}</div>
+              <div class="res-meta">${item.building_name || item.building_code} · Floor ${item.floor !== null ? item.floor : 'G'} · ${item.type}</div>
+            </div>
+          `).join('');
+          searchResults.style.display = 'block';
+        } else {
+          searchResults.style.display = 'none';
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    });
+
+    function triggerSearch(term) {
+      searchInput.value = term;
+      searchInput.dispatchEvent(new Event('input'));
+    }
+
+    function setFromNode(nodeId, name) {
+      currentFromNode = nodeId;
+      document.getElementById('inputFrom').value = name;
+      calculateRouteAPI();
+    }
+
+    function setToNode(nodeId, name) {
+      currentToNode = nodeId;
+      document.getElementById('inputTo').value = name;
+      searchResults.style.display = 'none';
+      calculateRouteAPI();
+    }
+
+    function setRouteMode(mode) {
+      currentMode = mode;
+      document.getElementById('card-shortest').classList.toggle('selected', mode === 'SHORTEST');
+      document.getElementById('card-accessible').classList.toggle('selected', mode === 'ACCESSIBLE');
+      calculateRouteAPI();
+    }
+
+    // GPS Current Location API Resolution
+    function useMyLocation() {
+      if ('geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition(async (pos) => {
+          const lat = pos.coords.latitude;
+          const lng = pos.coords.longitude;
+          try {
+            const res = await fetch(`/api/locations/nearest?lat=${lat}&lng=${lng}`);
+            const data = await res.json();
+            if (data.success && data.nearest_node) {
+              setFromNode(data.nearest_node.id, `My Location (${data.nearest_node.name})`);
+            }
+          } catch (err) {
+            console.error(err);
+          }
+        }, () => {
+          // Fallback to Main Gate
+          setFromNode('node_ext_main_gate', 'Main Campus Entrance Gate');
+        });
+      }
+    }
+
+    function openModal(id) {}
+  </script>
+</body>
+</html>

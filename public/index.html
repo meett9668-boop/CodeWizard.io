@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campusly - Campus Navigation System</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CSS Variables */
+        :root {
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F8F7F4;
+            --dark: #1A1A1A;
+            --dark-accent: #2D2D2D;
+            --highlight: #C9622F;
+            --text-main: #1A1A1A;
+            --text-light: #F5F5F0;
+            --border-color: #E8E4DE;
+            
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Inter', sans-serif;
+            
+            --spacing-section: 120px;
+            --spacing-section-mobile: 80px;
+            
+            --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Resets & Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--text-main);
+            background-color: var(--bg-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-heading);
+            font-weight: 500;
+            line-height: 1.1;
+            color: var(--text-main);
+            margin-bottom: 24px;
+        }
+
+        p {
+            margin-bottom: 24px;
+            font-size: 1.125rem;
+            color: #4A4A4A;
+            font-weight: 300;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img, svg {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* Typography */
+        .h1 { font-size: clamp(3rem, 5vw, 4.5rem); letter-spacing: -0.02em; }
+        .h2 { font-size: clamp(2.5rem, 4vw, 3.5rem); letter-spacing: -0.01em; }
+        .h3 { font-size: 2rem; }
+        
+        .label {
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 24px;
+            display: inline-block;
+        }
+        
+        .label-accent {
+            border-left: 2px solid var(--highlight);
+            padding-left: 12px;
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        .section {
+            padding: var(--spacing-section) 0;
+        }
+
+        .section-bg-offwhite {
+            background-color: var(--bg-secondary);
+        }
+        
+        .section-bg-dark {
+            background-color: var(--dark);
+            color: var(--text-light);
+        }
+        
+        .section-bg-dark h1, 
+        .section-bg-dark h2, 
+        .section-bg-dark h3, 
+        .section-bg-dark p {
+            color: var(--text-light);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        @media (max-width: 992px) {
+            .grid-2 { grid-template-columns: 1fr; gap: 40px; }
+            .grid-3 { grid-template-columns: 1fr; gap: 40px; }
+            .section { padding: var(--spacing-section-mobile) 0; }
+        }
+
+        /* Buttons & Links */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 32px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all var(--transition-smooth);
+            text-align: center;
+            border: 1px solid transparent;
+        }
+
+        .btn-dark {
+            background-color: var(--dark);
+            color: var(--bg-primary);
+        }
+
+        .btn-dark:hover {
+            background-color: var(--text-main);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline-dark {
+            background-color: transparent;
+            color: var(--dark);
+            border-color: var(--dark);
+        }
+
+        .btn-outline-dark:hover {
+            background-color: var(--bg-secondary);
+        }
+        
+        .btn-white {
+            background-color: var(--bg-primary);
+            color: var(--dark);
+        }
+        
+        .btn-outline-white {
+            background-color: transparent;
+            color: var(--text-light);
+            border-color: var(--text-light);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 32px;
+        }
+
+        .link-arrow {
+            display: inline-flex;
+            align-items: center;
+            font-family: var(--font-body);
+            font-weight: 500;
+            font-size: 1rem;
+            color: var(--dark);
+            border-bottom: 1px solid var(--dark);
+            padding-bottom: 4px;
+            transition: color var(--transition-smooth), border-color var(--transition-smooth);
+        }
+        
+        .link-arrow::after {
+            content: '→';
+            margin-left: 8px;
+            transition: transform var(--transition-smooth);
+        }
+        
+        .link-arrow:hover {
+            color: var(--highlight);
+            border-color: var(--highlight);
+        }
+        
+        .link-arrow:hover::after {
+            transform: translateX(4px);
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--bg-primary);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        .nav-logo {
+            font-family: var(--font-heading);
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--dark);
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-link {
+            font-size: 0.9375rem;
+            font-weight: 400;
+            color: var(--dark);
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--dark);
+            transition: width var(--transition-smooth);
+        }
+
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+        }
+        
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+        
+        .menu-toggle span {
+            width: 24px;
+            height: 2px;
+            background-color: var(--dark);
+            transition: 0.3s;
+        }
+
+        @media (max-width: 992px) {
+            .nav-links, .nav-actions .btn {
+                display: none;
+            }
+            .menu-toggle {
+                display: flex;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background-color: var(--bg-secondary);
+            padding-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(var(--border-color) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.3;
+            z-index: 0;
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+        }
+        
+        .hero-content {
+            padding-right: 40px;
+        }
+
+        /* SVG Map Animation in Hero */
+        .hero-visual {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .route-path {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: drawRoute 4s ease-in-out infinite alternate;
+        }
+        
+        @keyframes drawRoute {
+            to { stroke-dashoffset: 0; }
+        }
+        
+        .pulse-dot {
+            transform-origin: center;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+            100% { transform: scale(0.95); opacity: 1; }
+        }
+        
+        .info-chip {
+            position: absolute;
+            top: 25%;
+            right: 15%;
+            background: white;
+            padding: 12px 20px;
+            border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+            font-size: 0.875rem;
+            font-weight: 500;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Marquee */
+        .marquee-wrapper {
+            background-color: var(--dark);
+            color: var(--text-light);
+            padding: 24px 0;
+            overflow: hidden;
+            display: flex;
+            white-space: nowrap;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .marquee {
+            display: flex;
+            animation: scroll 30s linear infinite;
+        }
+        
+        .marquee span {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            padding: 0 20px;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* How it Works */
+        .step-number {
+            font-family: var(--font-heading);
+            font-size: 5rem;
+            color: var(--border-color);
+            line-height: 1;
+            margin-bottom: 24px;
+            font-style: italic;
+        }
+        
+        .step-divider {
+            height: 1px;
+            background-color: var(--border-color);
+            margin: 32px 0;
+            display: none;
+        }
+        
+        @media (max-width: 992px) {
+            .step-divider { display: block; }
+        }
+
+        /* Features Split */
+        .feature-img-wrapper {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            overflow: hidden;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+        
+        .section-bg-offwhite .feature-img-wrapper {
+            background: var(--bg-primary);
+        }
+
+        /* Stats */
+        .stat-item {
+            text-align: center;
+            padding: 40px 20px;
+            border-right: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .stat-item:last-child {
+            border-right: none;
+        }
+        
+        .stat-num {
+            font-family: var(--font-heading);
+            font-size: 4.5rem;
+            margin-bottom: 8px;
+            color: var(--bg-primary);
+        }
+        
+        .stat-label {
+            font-size: 0.875rem;
+            color: #A0A0A0;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .stat-item:nth-child(2) { border-right: none; }
+            .stat-item:nth-child(1), .stat-item:nth-child(2) { 
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+        }
+
+        /* Building Cards */
+        .card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            padding: 40px;
+            border-radius: 4px;
+            transition: all var(--transition-smooth);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .card:hover {
+            border-color: var(--dark);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            transform: translateY(-4px);
+        }
+        
+        .card-badge {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 24px;
+            align-self: flex-start;
+        }
+        
+        .card-content {
+            flex-grow: 1;
+        }
+
+        /* Hackathon Value */
+        .value-row {
+            display: flex;
+            align-items: baseline;
+            padding: 24px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .value-row:last-child { border-bottom: none; }
+        
+        .value-problem {
+            flex: 1;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .value-arrow {
+            margin: 0 24px;
+            color: var(--highlight);
+        }
+        
+        .value-solution {
+            flex: 2;
+            color: #4A4A4A;
+        }
+        
+        @media (max-width: 768px) {
+            .value-row { flex-direction: column; gap: 8px; }
+            .value-arrow { display: none; }
+            .value-solution { padding-left: 20px; border-left: 2px solid var(--highlight); }
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            position: relative;
+        }
+        
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: 0;
+        }
+        
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-primary);
+            padding: 80px 0 40px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 80px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .footer-tagline {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: #4A4A4A;
+            max-width: 400px;
+            text-align: right;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+        
+        .footer-col h4 {
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 24px;
+            color: #888;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-col ul li a {
+            font-size: 0.9375rem;
+            color: var(--dark);
+            transition: color 0.2s;
+        }
+        
+        .footer-col ul li a:hover {
+            color: var(--highlight);
+        }
+        
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.875rem;
+            color: #888;
+        }
+        
+        @media (max-width: 768px) {
+            .footer-top { flex-direction: column; align-items: flex-start; gap: 24px; }
+            .footer-tagline { text-align: left; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            .fade-in { opacity: 1; transform: none; transition: none; }
+            .marquee { animation: none; }
+            .route-path { animation: none; stroke-dashoffset: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">Campusly</a>
+            
+            <div class="nav-links">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="navigate.html" class="nav-link">Navigate</a>
+                <a href="buildings.html" class="nav-link">Buildings</a>
+                <a href="accessibility.html" class="nav-link">Accessibility</a>
+                <a href="about.html" class="nav-link">About</a>
+            </div>
+            
+            <div class="nav-actions">
+                <a href="navigate.html" class="btn btn-dark">Get Started →</a>
+            </div>
+            
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container grid-2">
+            <div class="hero-content fade-in">
+                <span class="label label-accent">Campus Navigation System</span>
+                <h1 class="h1">Never get lost between classes again.</h1>
+                <p>Room-level navigation for CHARUSAT University. Find any room, lab or building — with accessible routing — in seconds.</p>
+                <div class="btn-group">
+                    <a href="buildings.html" class="btn btn-dark">Explore Campus</a>
+                    <a href="navigate.html" class="btn btn-outline-dark">Start Navigation →</a>
+                </div>
+            </div>
+            
+            <div class="hero-visual fade-in">
+                <div class="info-chip">AI & ML Lab · Floor 2 · 3 min</div>
+                <!-- Abstract Map SVG -->
+                <svg viewBox="0 0 500 500" width="100%" height="100%" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Background Grid -->
+                    <rect width="500" height="500" fill="transparent" />
+                    
+                    <!-- Buildings -->
+                    <rect x="50" y="50" width="120" height="80" rx="4" fill="#FFFFFF" stroke="#E8E4DE" stroke-width="2"/>
+                    <text x="110" y="95" font-family="Inter" font-size="12" fill="#1A1A1A" text-anchor="middle">A7 CSPIT</text>
+                    
+                    <rect x="250" y="80" width="100" height="120" rx="4" fill="#FFFFFF" stroke="#E8E4DE" stroke-width="2"/>
+                    <text x="300" y="145" font-family="Inter" font-size="12" fill="#1A1A1A" text-anchor="middle">A6 CSPIT</text>
+                    
+                    <rect x="350" y="300" width="100" height="100" rx="4" fill="#FFFFFF" stroke="#E8E4DE" stroke-width="2"/>
+                    <text x="400" y="355" font-family="Inter" font-size="12" fill="#1A1A1A" text-anchor="middle">A5 DEPSTAR</text>
+                    
+                    <rect x="80" y="350" width="140" height="90" rx="4" fill="#FFFFFF" stroke="#E8E4DE" stroke-width="2"/>
+                    <text x="150" y="400" font-family="Inter" font-size="12" fill="#1A1A1A" text-anchor="middle">Library</text>
+
+                    <!-- Path Background -->
+                    <path d="M 60 420 L 60 250 L 180 250 L 180 150 L 300 150 L 300 250 L 400 250" stroke="#E8E4DE" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    
+                    <!-- Animated Route -->
+                    <path class="route-path" d="M 60 420 L 60 250 L 180 250 L 180 150 L 290 150" stroke="#C9622F" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    
+                    <!-- Current Location Dot -->
+                    <circle cx="60" cy="420" r="8" fill="#1A1A1A" class="pulse-dot"/>
+                    <text x="75" y="424" font-family="Inter" font-size="10" fill="#1A1A1A">Main Gate</text>
+                    
+                    <!-- Destination Pin -->
+                    <path d="M 290 150 C 290 145 285 140 285 140 C 285 140 290 135 290 135 C 290 135 295 140 295 140 C 295 140 290 145 290 150 Z" fill="#C9622F"/>
+                    <circle cx="290" cy="142" r="4" fill="#C9622F"/>
+                    
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- Marquee -->
+    <div class="marquee-wrapper">
+        <div class="marquee">
+            <span>Room 638 — Advanced Computing Lab</span>
+            <span>·</span>
+            <span>CSPIT A7 — Floor 2</span>
+            <span>·</span>
+            <span>Accessible Route</span>
+            <span>·</span>
+            <span>Step-free Navigation</span>
+            <span>·</span>
+            <span>Fastest Route — A* Graph Search</span>
+            <span>·</span>
+            <span>CHARUSAT University</span>
+            <span>·</span>
+            <span>Problem Statement #19</span>
+            <span>·</span>
+            <!-- Duplicate for seamless scrolling -->
+            <span>Room 638 — Advanced Computing Lab</span>
+            <span>·</span>
+            <span>CSPIT A7 — Floor 2</span>
+            <span>·</span>
+            <span>Accessible Route</span>
+            <span>·</span>
+            <span>Step-free Navigation</span>
+            <span>·</span>
+            <span>Fastest Route — A* Graph Search</span>
+            <span>·</span>
+            <span>CHARUSAT University</span>
+            <span>·</span>
+            <span>Problem Statement #19</span>
+            <span>·</span>
+        </div>
+    </div>
+
+    <!-- How It Works -->
+    <section class="section">
+        <div class="container fade-in">
+            <span class="label label-accent">Process</span>
+            <h2 class="h2">Navigation made simple.</h2>
+            
+            <div class="grid-3" style="margin-top: 60px;">
+                <div>
+                    <div class="step-number">01</div>
+                    <h3 class="h3">Search</h3>
+                    <p>Type a room number, lab name or facility. CAMPUSLY finds it instantly across the entire campus database.</p>
+                </div>
+                <div class="step-divider"></div>
+                <div>
+                    <div class="step-number">02</div>
+                    <h3 class="h3">Choose</h3>
+                    <p>Pick shortest or accessible route mode. Our engine adapts to your specific mobility needs.</p>
+                </div>
+                <div class="step-divider"></div>
+                <div>
+                    <div class="step-number">03</div>
+                    <h3 class="h3">Navigate</h3>
+                    <p>Follow step-by-step indoor and outdoor directions directly to your destination's exact door.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Split -->
+    <!-- Feature 1 -->
+    <section class="section">
+        <div class="container grid-2">
+            <div class="feature-img-wrapper fade-in">
+                <svg viewBox="0 0 400 300" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Floor Plan Abstract -->
+                    <rect x="40" y="40" width="320" height="220" fill="white" stroke="#E8E4DE" stroke-width="2"/>
+                    <rect x="40" y="40" width="80" height="100" fill="#F8F7F4" stroke="#E8E4DE"/>
+                    <rect x="120" y="40" width="80" height="100" fill="#F8F7F4" stroke="#E8E4DE"/>
+                    <rect x="200" y="40" width="160" height="60" fill="#F8F7F4" stroke="#E8E4DE"/>
+                    
+                    <rect x="40" y="180" width="120" height="80" fill="#F8F7F4" stroke="#E8E4DE"/>
+                    <rect x="160" y="180" width="100" height="80" fill="#F8F7F4" stroke="#E8E4DE"/>
+                    <rect x="260" y="180" width="100" height="80" fill="#F8F7F4" stroke="#E8E4DE"/>
+                    
+                    <!-- Corridor Path -->
+                    <path d="M 20 160 L 380 160" stroke="#C9622F" stroke-width="4" stroke-dasharray="8 4"/>
+                    
+                    <!-- Elevator -->
+                    <rect x="320" y="100" width="40" height="40" fill="#1A1A1A"/>
+                    <text x="340" y="125" font-family="Inter" font-size="10" fill="white" text-anchor="middle">ELV</text>
+                    
+                    <circle cx="280" cy="160" r="6" fill="#C9622F"/>
+                    <path d="M 280 160 L 280 200" stroke="#C9622F" stroke-width="3"/>
+                </svg>
+            </div>
+            <div class="fade-in">
+                <span class="label label-accent">Indoor Navigation</span>
+                <h2 class="h2">Floor-by-floor directions inside every building.</h2>
+                <p>Navigate from the entrance to Room 638 (Advanced Computing Lab) on Floor 2 with exact turn-by-turn steps. Our indoor graph knows every corridor, elevator and staircase.</p>
+                <a href="buildings.html" class="link-arrow">Explore Buildings</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature 2 -->
+    <section class="section section-bg-offwhite">
+        <div class="container grid-2">
+            <div class="fade-in" style="order: 1;">
+                <span class="label label-accent">Accessibility First</span>
+                <h2 class="h2">Step-free routing for everyone.</h2>
+                <p>Switch to Accessible Mode and our A* pathfinding avoids stairs entirely, prefers elevators and ramps, and shows only step-free routes — automatically.</p>
+                <a href="accessibility.html" class="link-arrow">Learn About Accessibility</a>
+            </div>
+            <div class="feature-img-wrapper fade-in" style="order: 2;">
+                <svg viewBox="0 0 400 300" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="200" cy="150" r="100" fill="white" stroke="#E8E4DE" stroke-width="2"/>
+                    <!-- Wheelchair/Access Symbol Abstract -->
+                    <circle cx="200" cy="110" r="15" fill="#1A1A1A"/>
+                    <path d="M 180 140 L 200 140 L 200 190 L 170 190" stroke="#1A1A1A" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M 200 150 L 230 180 L 250 180" stroke="#1A1A1A" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="190" cy="200" r="25" stroke="#1A1A1A" stroke-width="6" fill="none"/>
+                    
+                    <!-- Nodes -->
+                    <circle cx="80" cy="80" r="6" fill="#C9622F"/>
+                    <circle cx="320" cy="220" r="6" fill="#C9622F"/>
+                    <path d="M 80 80 Q 200 20 320 220" stroke="#C9622F" stroke-width="2" stroke-dasharray="4 4" fill="none"/>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature 3 -->
+    <section class="section">
+        <div class="container grid-2">
+            <div class="feature-img-wrapper fade-in">
+                <svg viewBox="0 0 400 300" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Graph nodes -->
+                    <path d="M 50 150 L 150 50 L 250 100 L 350 80 L 300 200 L 180 250 Z" stroke="#E8E4DE" stroke-width="2" fill="none"/>
+                    <path d="M 150 50 L 300 200 M 50 150 L 250 100 M 180 250 L 350 80" stroke="#E8E4DE" stroke-width="1" fill="none"/>
+                    
+                    <!-- Highlighted Path -->
+                    <path d="M 50 150 L 150 50 L 250 100 L 350 80" stroke="#C9622F" stroke-width="4" fill="none" stroke-linejoin="round"/>
+                    
+                    <circle cx="50" cy="150" r="8" fill="#1A1A1A"/>
+                    <circle cx="150" cy="50" r="6" fill="#1A1A1A"/>
+                    <circle cx="250" cy="100" r="6" fill="#1A1A1A"/>
+                    <circle cx="350" cy="80" r="8" fill="#C9622F"/>
+                    <circle cx="300" cy="200" r="5" fill="#E8E4DE"/>
+                    <circle cx="180" cy="250" r="5" fill="#E8E4DE"/>
+                </svg>
+            </div>
+            <div class="fade-in">
+                <span class="label label-accent">A* Pathfinding</span>
+                <h2 class="h2">Smart routing built on graph theory.</h2>
+                <p>Every building, floor, corridor and room is a node. Every walkable path is an edge with a cost. A* finds the optimal route through 18+ indexed CHARUSAT locations.</p>
+                <a href="about.html" class="link-arrow">See the Technology</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <section class="section section-bg-dark" style="padding: 0;">
+        <div class="container">
+            <div class="grid-3 stats-grid" style="gap: 0; grid-template-columns: repeat(4, 1fr);">
+                <div class="stat-item fade-in">
+                    <div class="stat-num counter" data-target="3">0</div>
+                    <div class="stat-label">Focus Buildings (A5, A6, A7)</div>
+                </div>
+                <div class="stat-item fade-in" style="transition-delay: 0.1s;">
+                    <div class="stat-num counter" data-target="18">0</div>
+                    <div class="stat-label">Destinations Indexed</div>
+                </div>
+                <div class="stat-item fade-in" style="transition-delay: 0.2s;">
+                    <div class="stat-num counter" data-target="100">0</div>
+                    <div class="stat-label">% Step-Free Capable</div>
+                </div>
+                <div class="stat-item fade-in" style="transition-delay: 0.3s;">
+                    <div class="stat-num counter" data-target="2">0</div>
+                    <div class="stat-label">Routing Modes (Shortest & Accessible)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Buildings Preview -->
+    <section class="section section-bg-offwhite">
+        <div class="container">
+            <div class="fade-in" style="margin-bottom: 60px; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 20px;">
+                <div>
+                    <span class="label label-accent">Locations</span>
+                    <h2 class="h2" style="margin-bottom: 0;">Explore the Campus</h2>
+                </div>
+                <a href="buildings.html" class="link-arrow">View all buildings</a>
+            </div>
+            
+            <div class="grid-3">
+                <!-- Card 1 -->
+                <div class="card fade-in">
+                    <span class="card-badge">A7</span>
+                    <div class="card-content">
+                        <h3 class="h3">CSPIT Block 2</h3>
+                        <p style="font-size: 0.9375rem;">CE · IT · EC<br>3 Floors · Room 638, 635, 636, 637</p>
+                    </div>
+                    <a href="navigate.html?to=dest_a7_r638" class="link-arrow">Navigate</a>
+                </div>
+                
+                <!-- Card 2 -->
+                <div class="card fade-in" style="transition-delay: 0.1s;">
+                    <span class="card-badge">A6</span>
+                    <div class="card-content">
+                        <h3 class="h3">CSPIT Block 1</h3>
+                        <p style="font-size: 0.9375rem;">Civil · EE · Mech<br>Auditorium & Labs</p>
+                    </div>
+                    <a href="navigate.html?to=node_ext_a6_entrance" class="link-arrow">Navigate</a>
+                </div>
+                
+                <!-- Card 3 -->
+                <div class="card fade-in" style="transition-delay: 0.2s;">
+                    <span class="card-badge">A5</span>
+                    <div class="card-content">
+                        <h3 class="h3">DEPSTAR</h3>
+                        <p style="font-size: 0.9375rem;">CSE · AI & ML · Cyber Security<br>Room 501, 502, 503, 504</p>
+                    </div>
+                    <a href="navigate.html?to=dest_a5_r501" class="link-arrow">Navigate</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hackathon Value -->
+    <section class="section">
+        <div class="container">
+            <div class="fade-in" style="max-width: 800px; margin: 0 auto; border-left: 2px solid var(--highlight); padding-left: 40px;">
+                <h2 class="h2">Built for real campus problems.</h2>
+                <p style="font-weight: 500;">Problem Statement #19 — Campus Navigator — CHARUSAT University</p>
+                
+                <div style="margin-top: 60px;">
+                    <div class="value-row">
+                        <div class="value-problem">Lost between buildings</div>
+                        <div class="value-arrow">→</div>
+                        <div class="value-solution">Room-level navigation with turn-by-turn directions</div>
+                    </div>
+                    <div class="value-row">
+                        <div class="value-problem">Accessibility barriers</div>
+                        <div class="value-arrow">→</div>
+                        <div class="value-solution">Stair-free routing with elevator preference</div>
+                    </div>
+                    <div class="value-row">
+                        <div class="value-problem">Unknown campus layout</div>
+                        <div class="value-arrow">→</div>
+                        <div class="value-solution">Searchable campus map with indexed locations</div>
+                    </div>
+                    <div class="value-row">
+                        <div class="value-problem">Indoor navigation</div>
+                        <div class="value-arrow">→</div>
+                        <div class="value-solution">Floor-by-floor indoor map with A* pathfinding</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section section-bg-dark cta-section">
+        <div class="container cta-content fade-in">
+            <h2 class="h1">Your campus is bigger than a map.</h2>
+            <p style="font-size: 1.5rem; margin-bottom: 40px; color: #A0A0A0;">Navigate it intelligently.</p>
+            <div class="btn-group" style="justify-content: center;">
+                <a href="buildings.html" class="btn btn-white">Explore Campus</a>
+                <a href="navigate.html" class="btn btn-outline-white">Start Navigation →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="nav-logo">Campusly</div>
+                <div class="footer-tagline">Navigation built around the way students actually move.</div>
+            </div>
+            
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="navigate.html">Navigate</a></li>
+                        <li><a href="buildings.html">Buildings</a></li>
+                        <li><a href="accessibility.html">Accessibility</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Project</h4>
+                    <ul>
+                        <li><a href="about.html">Problem Statement #19</a></li>
+                        <li><a href="about.html">Technology</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Campus</h4>
+                    <ul>
+                        <li><a href="buildings.html">A7 CSPIT Block 2</a></li>
+                        <li><a href="buildings.html">A6 CSPIT Block 1</a></li>
+                        <li><a href="buildings.html">A5 DEPSTAR</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="about.html">About Team</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div>© 2026 Campus Navigator · Built for Hackathon · CHARUSAT</div>
+                <div>Problem Statement #19</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Navbar Scrolled State
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.05)';
+                navbar.style.height = '70px';
+                navbar.querySelector('.nav-container').style.height = '70px';
+            } else {
+                navbar.style.boxShadow = 'none';
+                navbar.style.height = '80px';
+                navbar.querySelector('.nav-container').style.height = '80px';
+            }
+        });
+
+        // Intersection Observer for Fade-In
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    // Trigger counters if it's a stats block
+                    if(entry.target.querySelector('.counter')) {
+                        startCounters(entry.target.querySelectorAll('.counter'));
+                    }
+                    
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        fadeElements.forEach(el => {
+            observer.observe(el);
+        });
+
+        // Animated Number Counters
+        function startCounters(counters) {
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const duration = 2000; // ms
+                const increment = target / (duration / 16); // 60fps
+                
+                let current = 0;
+                
+                const updateCounter = () => {
+                    current += increment;
+                    if (current < target) {
+                        counter.innerText = Math.ceil(current);
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+                
+                updateCounter();
+            });
+        }
+    </script>
+</body>
+</html>

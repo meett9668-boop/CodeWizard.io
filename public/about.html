@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | CAMPUSLY</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #FFFFFF;
+            --bg-alt: #F8F7F4;
+            --text-dark: #1A1A1A;
+            --text-secondary: #6B6B6B;
+            --accent: #C9622F;
+            --border-color: #E8E4DE;
+            
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Inter', sans-serif;
+            
+            --nav-height: 80px;
+            --section-pad: 100px;
+            --container-width: 1200px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: var(--font-sans); color: var(--text-dark);
+            background-color: var(--bg-primary); line-height: 1.6;
+            -webkit-font-smoothing: antialiased; overflow-x: hidden;
+        }
+        h1, h2, h3, h4, h5, h6 { font-family: var(--font-serif); font-weight: 500; line-height: 1.2; color: var(--text-dark); margin-bottom: 24px; }
+        p { font-size: 1.125rem; color: var(--text-secondary); margin-bottom: 24px; }
+        a { color: var(--text-dark); text-decoration: none; transition: color 0.3s ease; }
+
+        .label { font-family: var(--font-sans); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-secondary); margin-bottom: 16px; display: inline-block; font-weight: 600; }
+        .h1-large { font-size: clamp(3rem, 5vw, 4.5rem); letter-spacing: -0.02em; }
+        .h2-large { font-size: clamp(2.5rem, 4vw, 3.5rem); letter-spacing: -0.01em; }
+        
+        .container { max-width: var(--container-width); margin: 0 auto; padding: 0 5%; }
+        .section { padding: var(--section-pad) 0; }
+        .bg-alt { background-color: var(--bg-alt); }
+        .text-center { text-align: center; }
+
+        .navbar { position: sticky; top: 0; left: 0; width: 100%; height: var(--nav-height); background-color: var(--bg-primary); border-bottom: 1px solid var(--border-color); display: flex; align-items: center; z-index: 1000; }
+        .nav-container { width: 100%; max-width: var(--container-width); margin: 0 auto; padding: 0 5%; display: flex; justify-content: space-between; align-items: center; }
+        .nav-logo { font-family: var(--font-sans); font-weight: 700; font-size: 1.2rem; letter-spacing: 0.05em; }
+        .nav-links { display: flex; gap: 32px; list-style: none; }
+        .nav-links a { font-size: 0.9rem; font-weight: 400; color: var(--text-secondary); position: relative; padding: 8px 0; }
+        .nav-links a:hover, .nav-links a.active { color: var(--text-dark); }
+
+        .hero { padding: 120px 0; text-align: center; background-color: var(--bg-alt); }
+        .badge { display: inline-flex; align-items: center; padding: 8px 16px; background-color: rgba(201, 98, 47, 0.1); color: var(--accent); border-radius: 4px; font-size: 0.875rem; font-weight: 500; margin-bottom: 32px; }
+
+        .quote-section { padding: 120px 0; text-align: center; border-bottom: 1px solid var(--border-color); }
+        .pull-quote { font-family: var(--font-serif); font-size: clamp(2rem, 4vw, 3rem); line-height: 1.3; color: var(--text-dark); max-width: 900px; margin: 0 auto; font-style: italic; }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; }
+        .grid-2x2 { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 48px; }
+
+        .pipeline { display: flex; justify-content: space-between; align-items: flex-start; margin-top: 64px; gap: 24px; position: relative; }
+        .pipeline-step { flex: 1; text-align: left; }
+        .step-num { font-family: var(--font-serif); font-size: 3rem; color: var(--accent); line-height: 1; margin-bottom: 16px; display: block; }
+        .step-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 8px; color: var(--text-dark); }
+        .step-desc { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; }
+        .pipeline-arrow { font-size: 1.5rem; color: var(--border-color); margin-top: 24px; }
+
+        .card { background: var(--bg-primary); border: 1px solid var(--border-color); padding: 40px; border-radius: 0; transition: all 0.3s ease; }
+
+        .visualizer-container { background: var(--bg-primary); border: 1px solid var(--border-color); padding: 32px; margin-top: 48px; }
+        .canvas-wrapper { width: 100%; display: flex; justify-content: center; background: #fafafa; border: 1px solid var(--border-color); padding: 24px; overflow-x: auto; margin-bottom: 24px; }
+        canvas { display: block; max-width: 100%; background: white; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+        .vis-controls { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+        .btn { padding: 12px 24px; font-family: var(--font-sans); font-size: 0.9rem; font-weight: 500; border-radius: 4px; cursor: pointer; transition: all 0.3s ease; border: 1px solid transparent; }
+        .btn-dark { background: var(--text-dark); color: white; }
+        .btn-dark:hover { background: var(--accent); }
+        .btn-outline { background: transparent; border: 1px solid var(--border-color); color: var(--text-dark); }
+        .vis-stats { margin-left: auto; font-family: monospace; font-size: 0.9rem; color: var(--text-secondary); }
+
+        .editorial-table { width: 100%; border-collapse: collapse; text-align: left; margin-top: 48px; }
+        .editorial-table th { font-size: 0.8rem; text-transform: uppercase; color: var(--text-secondary); padding: 24px; border-bottom: 1px solid var(--border-color); }
+        .editorial-table td { padding: 24px; border-bottom: 1px solid var(--border-color); font-size: 1rem; }
+        .editorial-table tr:nth-child(even) { background-color: var(--bg-alt); }
+
+        .scope-list { list-style: none; }
+        .scope-list li { padding: 16px 0; border-bottom: 1px solid var(--border-color); display: flex; }
+        .scope-list li strong { width: 120px; flex-shrink: 0; color: var(--text-dark); }
+        .scope-list li span { color: var(--text-secondary); }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">CAMPUSLY</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="navigate.html">Navigate</a></li>
+                <li><a href="buildings.html">Buildings</a></li>
+                <li><a href="accessibility.html">Accessibility</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <div class="badge">Problem Statement #19 · Campus Navigator</div>
+            <h1 class="h1-large" style="max-width: 900px; margin: 0 auto 24px;">We built a campus OS, not just a map.</h1>
+            <p style="max-width: 700px; margin: 0 auto;">CAMPUSLY is a hackathon project solving room-level campus navigation for CHARUSAT University using graph-based A* pathfinding.</p>
+        </div>
+    </section>
+
+    <section class="quote-section">
+        <div class="container">
+            <blockquote class="pull-quote">
+                "Google Maps tells you how to reach the campus.<br>CAMPUSLY tells you how to reach Room 638."
+            </blockquote>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="grid-2">
+                <div>
+                    <h2>The Problem</h2>
+                    <p>Large university campuses act as micro-cities. Standard mapping applications treat buildings as opaque boxes, directing students only to general coordinates. This leads to confusion, particularly for freshmen, guests, and differently-abled individuals who need to locate specific rooms, labs, or accessible facilities.</p>
+                </div>
+                <div>
+                    <h2>The Solution</h2>
+                    <p>CAMPUSLY breaks buildings open. By digitizing floor plans into weighted mathematical graphs and applying optimized A* routing algorithms, we provide door-to-door indoor navigation. Users get precise floor-by-floor instructions, and our adaptive cost functions ensure step-free accessibility.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section bg-alt">
+        <div class="container">
+            <div class="text-center">
+                <span class="label">TECHNOLOGY</span>
+                <h2 class="h2-large">Under the hood</h2>
+            </div>
+            
+            <div class="pipeline">
+                <div class="pipeline-step">
+                    <span class="step-num">1</span>
+                    <h3 class="step-title">Campus Data</h3>
+                    <p class="step-desc">Digitizing floor plans, coordinates, and facility attributes.</p>
+                </div>
+                <div class="pipeline-arrow">&rarr;</div>
+                <div class="pipeline-step">
+                    <span class="step-num">2</span>
+                    <h3 class="step-title">Campus Graph</h3>
+                    <p class="step-desc">Creating node-and-edge relationships for indoor networks.</p>
+                </div>
+                <div class="pipeline-arrow">&rarr;</div>
+                <div class="pipeline-step">
+                    <span class="step-num">3</span>
+                    <h3 class="step-title">A* Pathfinding</h3>
+                    <p class="step-desc">Applying heuristic algorithms to find optimal routes.</p>
+                </div>
+                <div class="pipeline-arrow">&rarr;</div>
+                <div class="pipeline-step">
+                    <span class="step-num">4</span>
+                    <h3 class="step-title">Optimization</h3>
+                    <p class="step-desc">Adjusting weights based on modes (shortest, accessible).</p>
+                </div>
+                <div class="pipeline-arrow">&rarr;</div>
+                <div class="pipeline-step">
+                    <span class="step-num">5</span>
+                    <h3 class="step-title">Leaflet Map</h3>
+                    <p class="step-desc">Rendering spatial polylines accurately on web interfaces.</p>
+                </div>
+            </div>
+
+            <div class="grid-2x2" style="margin-top: 80px;">
+                <div class="card">
+                    <span class="step-num" style="font-size: 2rem;">⚄</span>
+                    <h3>Graph Engine</h3>
+                    <p>Campus locations become nodes. Walking paths become weighted edges. This fundamental data structure allows us to calculate absolute shortest paths dynamically.</p>
+                </div>
+                <div class="card">
+                    <span class="step-num" style="font-size: 2rem;">⚡</span>
+                    <h3>A* Algorithm</h3>
+                    <p>f(n) = g(n) + h(n). Our implementation evaluates both exact path cost and spatial Haversine heuristic estimates to the destination.</p>
+                </div>
+                <div class="card">
+                    <span class="step-num" style="font-size: 2rem;">♿</span>
+                    <h3>Accessibility Matrix</h3>
+                    <p>Stair edges are strictly filtered out when accessibility mode is active. Elevators and ramps are automatically preferred.</p>
+                </div>
+                <div class="card">
+                    <span class="step-num" style="font-size: 2rem;">🏢</span>
+                    <h3>Indoor Mapping</h3>
+                    <p>We leverage indoor mapping principles: isolating building levels, rooms, corridors, stairs, and elevators to provide context-aware instructions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LIVE DEMO SECTION -->
+    <section class="section">
+        <div class="container">
+            <span class="label">LIVE DEMO</span>
+            <h2>A* Pathfinding Visualization</h2>
+            <p>Watch how CAMPUSLY's algorithm explores possible routes while moving towards the goal, bypassing obstacles using the heuristic.</p>
+            
+            <div class="visualizer-container">
+                <div class="canvas-wrapper">
+                    <canvas id="astar-canvas" width="600" height="350"></canvas>
+                </div>
+                
+                <div class="vis-controls">
+                    <button class="btn btn-dark" id="btn-run">▶ Run Algorithm</button>
+                    <button class="btn btn-outline" id="btn-reset">↺ Reset Grid</button>
+                    <div class="vis-stats" id="vis-stats">Nodes Explored: 0 &middot; Path Length: 0 &middot; Time: 0 ms</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section bg-alt">
+        <div class="container">
+            <h2 class="h2-large text-center">Why CAMPUSLY?</h2>
+            <div style="overflow-x: auto;">
+                <table class="editorial-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Standard Map Apps</th>
+                            <th>CAMPUSLY</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>General building navigation</td>
+                            <td>✅ Yes</td>
+                            <td>✅ Yes</td>
+                        </tr>
+                        <tr>
+                            <td>Precise room-level navigation</td>
+                            <td>❌ No</td>
+                            <td>✅ Yes</td>
+                        </tr>
+                        <tr>
+                            <td>Floor-by-floor indoor routing</td>
+                            <td>❌ No</td>
+                            <td>✅ Yes</td>
+                        </tr>
+                        <tr>
+                            <td>Step-free accessibility mode</td>
+                            <td>❌ No</td>
+                            <td>✅ Yes</td>
+                        </tr>
+                        <tr>
+                            <td>Multi-criteria A* graph logic</td>
+                            <td>❌ No</td>
+                            <td>✅ Yes</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div>
+                <h2>Project Scope</h2>
+                <p>This initiative represents a proof-of-concept targeted towards specific challenge criteria.</p>
+                <ul class="scope-list">
+                    <li><strong>Built for:</strong> <span>Hackathon Problem Statement #19</span></li>
+                    <li><strong>Campus:</strong> <span>CHARUSAT University, Changa, Gujarat</span></li>
+                    <li><strong>Focus Buildings:</strong> <span>A7 CSPIT Block 2, A6 CSPIT Block 1, A5 DEPSTAR</span></li>
+                    <li><strong>Destinations:</strong> <span>18 official rooms & labs indexed</span></li>
+                    <li><strong>Data Status:</strong> <span>Verified & prototype datasets cleanly separated.</span></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // A* ALGORITHM VISUALIZER LOGIC
+        const canvas = document.getElementById('astar-canvas');
+        const ctx = canvas.getContext('2d');
+        const cols = 20;
+        const rows = 11;
+        const cellW = canvas.width / cols;
+        const cellH = canvas.height / rows;
+
+        let grid = new Array(cols);
+        let openSet = [], closedSet = [], path = [];
+        let isRunning = false;
+        let nodesExplored = 0;
+        let startTime = 0;
+
+        function Node(i, j) {
+            this.i = i; this.j = j;
+            this.f = 0; this.g = 0; this.h = 0;
+            this.neighbors = [];
+            this.previous = undefined;
+            this.wall = Math.random() < 0.25;
+
+            this.show = function(color) {
+                ctx.fillStyle = this.wall ? '#4A5568' : color;
+                ctx.beginPath();
+                ctx.arc(this.i * cellW + cellW/2, this.j * cellH + cellH/2, cellW/2 - 4, 0, 2*Math.PI);
+                ctx.fill();
+            }
+
+            this.addNeighbors = function(grid) {
+                var i = this.i; var j = this.j;
+                if (i < cols - 1) this.neighbors.push(grid[i + 1][j]);
+                if (i > 0) this.neighbors.push(grid[i - 1][j]);
+                if (j < rows - 1) this.neighbors.push(grid[i][j + 1]);
+                if (j > 0) this.neighbors.push(grid[i][j - 1]);
+            }
+        }
+
+        function initGrid() {
+            isRunning = false;
+            openSet = []; closedSet = []; path = []; nodesExplored = 0;
+            
+            for (let i = 0; i < cols; i++) {
+                grid[i] = new Array(rows);
+                for (let j = 0; j < rows; j++) {
+                    grid[i][j] = new Node(i, j);
+                }
+            }
+            for (let i = 0; i < cols; i++) {
+                for (let j = 0; j < rows; j++) {
+                    grid[i][j].addNeighbors(grid);
+                }
+            }
+            start = grid[1][1];
+            end = grid[cols - 2][rows - 2];
+            start.wall = false; end.wall = false;
+            start.neighbors.forEach(n => n.wall = false);
+            end.neighbors.forEach(n => n.wall = false);
+
+            openSet.push(start);
+            drawGrid();
+        }
+
+        function drawGrid() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < cols; i++) {
+                for (let j = 0; j < rows; j++) {
+                    grid[i][j].show('#ffffff');
+                }
+            }
+            for (let i = 0; i < closedSet.length; i++) closedSet[i].show('#E8E4DE');
+            for (let i = 0; i < openSet.length; i++) openSet[i].show('rgba(201, 98, 47, 0.3)');
+            
+            if (path.length > 0) {
+                ctx.beginPath();
+                ctx.strokeStyle = '#C9622F';
+                ctx.lineWidth = 4;
+                ctx.moveTo(path[0].i * cellW + cellW/2, path[0].j * cellH + cellH/2);
+                for (let i = 1; i < path.length; i++) {
+                    ctx.lineTo(path[i].i * cellW + cellW/2, path[i].j * cellH + cellH/2);
+                }
+                ctx.stroke();
+            }
+
+            start.show('#C9622F');
+            end.show('#1A1A1A');
+        }
+
+        function heuristic(a, b) {
+            return Math.abs(a.i - b.i) + Math.abs(a.j - b.j);
+        }
+
+        function aStarStep() {
+            if (!isRunning) return;
+
+            if (openSet.length > 0) {
+                let winner = 0;
+                for (let i = 0; i < openSet.length; i++) {
+                    if (openSet[i].f < openSet[winner].f) winner = i;
+                }
+                let current = openSet[winner];
+
+                if (current === end) {
+                    isRunning = false;
+                    let temp = current;
+                    path = [];
+                    while (temp.previous) {
+                        path.push(temp.previous);
+                        temp = temp.previous;
+                    }
+                    drawGrid();
+                    return;
+                }
+
+                openSet.splice(winner, 1);
+                closedSet.push(current);
+                nodesExplored++;
+
+                let neighbors = current.neighbors;
+                for (let i = 0; i < neighbors.length; i++) {
+                    let neighbor = neighbors[i];
+                    if (!closedSet.includes(neighbor) && !neighbor.wall) {
+                        let tempG = current.g + 1;
+                        let newPath = false;
+                        if (openSet.includes(neighbor)) {
+                            if (tempG < neighbor.g) {
+                                neighbor.g = tempG;
+                                newPath = true;
+                            }
+                        } else {
+                            neighbor.g = tempG;
+                            newPath = true;
+                            openSet.push(neighbor);
+                        }
+
+                        if (newPath) {
+                            neighbor.h = heuristic(neighbor, end);
+                            neighbor.f = neighbor.g + neighbor.h;
+                            neighbor.previous = current;
+                        }
+                    }
+                }
+                
+                path = [];
+                let temp = current;
+                while (temp.previous) {
+                    path.push(temp.previous);
+                    temp = temp.previous;
+                }
+
+                drawGrid();
+                setTimeout(aStarStep, 40);
+            }
+        }
+
+        document.getElementById('btn-reset').addEventListener('click', initGrid);
+        document.getElementById('btn-run').addEventListener('click', () => {
+            if (isRunning) return;
+            if (openSet.length === 0) initGrid();
+            isRunning = true;
+            aStarStep();
+        });
+
+        window.addEventListener('load', initGrid);
+    </script>
+</body>
+</html>

@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 require('dotenv').config();
 
 const healthRoutes = require('./routes/health.routes');
@@ -29,6 +30,9 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Serve static frontend files from 'public' directory
+app.use(express.static(path.join(__dirname, '../../public')));
+
 // Health check route (root & /api/health)
 app.get('/health', (req, res) => res.json({ status: 'ok' }));
 app.use('/api/health', healthRoutes);
@@ -56,7 +60,7 @@ app.use((err, req, res, next) => {
 // Start Server if launched directly
 if (require.main === module) {
   app.listen(PORT, () => {
-    console.log(`[Campus Navigator Backend] Server running on port ${PORT}`);
+    console.log(`[Campus Navigator Unified Server] Server running on http://localhost:${PORT}`);
   });
 }
 
