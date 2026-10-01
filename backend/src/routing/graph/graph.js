@@ -36,7 +36,8 @@ class Graph {
       edge_type: edge_type || 'corridor',
       accessible: accessible !== undefined ? accessible : true,
       has_stairs: has_stairs !== undefined ? has_stairs : false,
-      verification_status: edge.verification_status || 'UNVERIFIED'
+      verification_status: edge.verification_status || 'UNVERIFIED',
+      data_status: edge.data_status || 'VERIFIED'
     };
 
     this.adjacencyList.get(source).push(forwardEdge);
@@ -49,7 +50,8 @@ class Graph {
         edge_type: edge_type || 'corridor',
         accessible: accessible !== undefined ? accessible : true,
         has_stairs: has_stairs !== undefined ? has_stairs : false,
-        verification_status: edge.verification_status || 'UNVERIFIED'
+        verification_status: edge.verification_status || 'UNVERIFIED',
+        data_status: edge.data_status || 'VERIFIED'
       };
       this.adjacencyList.get(target).push(backwardEdge);
     }

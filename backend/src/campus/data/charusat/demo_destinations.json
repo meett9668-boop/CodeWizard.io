@@ -1,0 +1,168 @@
+[
+  {
+    "id": "demo_node_a5_f1_r502",
+    "building_id": "bldg_a5",
+    "floor": 1,
+    "name": "Room 502 - AI & Machine Learning Lab",
+    "type": "lab",
+    "coordinates": { "lat": 22.59940, "lng": 72.82030, "floor_z": 1 },
+    "verification_status": "UNVERIFIED",
+    "data_status": "DEMO_ONLY",
+    "warning": "Prototype position — exact indoor location not physically verified."
+  },
+  {
+    "id": "demo_node_a5_f1_r503",
+    "building_id": "bldg_a5",
+    "floor": 1,
+    "name": "Room 503 - Cloud Computing & IoT Lab",
+    "type": "lab",
+    "coordinates": { "lat": 22.59942, "lng": 72.82032, "floor_z": 1 },
+    "verification_status": "UNVERIFIED",
+    "data_status": "DEMO_ONLY",
+    "warning": "Prototype position — exact indoor location not physically verified."
+  },
+  {
+    "id": "demo_node_a5_f1_r504",
+    "building_id": "bldg_a5",
+    "floor": 1,
+    "name": "Room 504 - Cyber Security Research Lab",
+    "type": "lab",
+    "coordinates": { "lat": 22.59944, "lng": 72.82034, "floor_z": 1 },
+    "verification_status": "UNVERIFIED",
+    "data_status": "DEMO_ONLY",
+    "warning": "Prototype position — exact indoor location not physically verified."
+  },
+  {
+    "id": "demo_node_a5_f0_semhall",
+    "building_id": "bldg_a5",
+    "floor": 0,
+    "name": "DEPSTAR Seminar Hall",
+    "type": "seminar_hall",
+    "coordinates": { "lat": 22.59937, "lng": 72.82027, "floor_z": 0 },
+    "verification_status": "UNVERIFIED",
+    "data_status": "DEMO_ONLY",
+    "warning": "Prototype position — exact indoor location not physically verified."
+  },
+  {
+    "id": "demo_node_a6_f0_civillab",
+    "building_id": "bldg_a6",
+    "floor": 0,
+    "name": "Heavy Structures Lab (Civil)",
+    "type": "lab",
+    "coordinates": { "lat": 22.59970, "lng": 72.82070, "floor_z": 0 },
+    "verification_status": "UNVERIFIED",
+    "data_status": "DEMO_ONLY",
+    "warning": "Prototype position — exact indoor location not physically verified."
+  },
+  {
+    "id": "demo_node_a6_f0_eelab",
+    "building_id": "bldg_a6",
+    "floor": 0,
+    "name": "High Voltage Engineering Lab",
+    "type": "lab",
+    "coordinates": { "lat": 22.59972, "lng": 72.82072, "floor_z": 0 },
+    "verification_status": "UNVERIFIED",
+    "data_status": "DEMO_ONLY",
+    "warning": "Prototype position — exact indoor location not physically verified."
+  },
+  {
+    "id": "demo_node_a6_f0_mechlab",
+    "building_id": "bldg_a6",
+    "floor": 0,
+    "name": "Fluid Mechanics Lab",
+    "type": "lab",
+    "coordinates": { "lat": 22.59974, "lng": 72.82074, "floor_z": 0 },
+    "verification_status": "UNVERIFIED",
+    "data_status": "DEMO_ONLY",
+    "warning": "Prototype position — exact indoor location not physically verified."
+  },
+  {
+    "id": "demo_node_a6_f0_auditorium",
+    "building_id": "bldg_a6",
+    "floor": 0,
+    "name": "CSPIT Main Auditorium",
+    "type": "auditorium",
+    "coordinates": { "lat": 22.59976, "lng": 72.82076, "floor_z": 0 },
+    "verification_status": "UNVERIFIED",
+    "data_status": "DEMO_ONLY",
+    "warning": "Prototype position — exact indoor location not physically verified."
+  },
+  {
+    "id": "demo_node_a6_f0_r102",
+    "building_id": "bldg_a6",
+    "floor": 0,
+    "name": "Tutorial Room 102",
+    "type": "tutorial_room",
+    "coordinates": { "lat": 22.59978, "lng": 72.82078, "floor_z": 0 },
+    "verification_status": "UNVERIFIED",
+    "data_status": "DEMO_ONLY",
+    "warning": "Prototype position — exact indoor location not physically verified."
+  },
+  {
+    "id": "demo_node_a7_f2_r635",
+    "building_id": "bldg_a7",
+    "floor": 2,
+    "name": "Room 635 - Computer Graphics Lab",
+    "type": "lab",
+    "coordinates": { "lat": 22.59990, "lng": 72.82100, "floor_z": 2 },
+    "verification_status": "UNVERIFIED",
+    "data_status": "DEMO_ONLY",
+    "warning": "Prototype position — exact indoor location not physically verified."
+  },
+  {
+    "id": "demo_node_a7_f2_r636",
+    "building_id": "bldg_a7",
+    "floor": 2,
+    "name": "Room 636 - Database Systems Lab",
+    "type": "lab",
+    "coordinates": { "lat": 22.59992, "lng": 72.82102, "floor_z": 2 },
+    "verification_status": "UNVERIFIED",
+    "data_status": "DEMO_ONLY",
+    "warning": "Prototype position — exact indoor location not physically verified."
+  },
+  {
+    "id": "demo_node_a7_f2_r637",
+    "building_code": "A7",
+    "building_id": "bldg_a7",
+    "floor": 2,
+    "name": "Room 637 - Operating System Lab",
+    "type": "lab",
+    "coordinates": { "lat": 22.59994, "lng": 72.82104, "floor_z": 2 },
+    "verification_status": "UNVERIFIED",
+    "data_status": "DEMO_ONLY",
+    "warning": "Prototype position — exact indoor location not physically verified."
+  },
+  {
+    "id": "demo_node_a7_f1_r612",
+    "building_id": "bldg_a7",
+    "floor": 1,
+    "name": "Room 612 - VLSI & Embedded Lab",
+    "type": "lab",
+    "coordinates": { "lat": 22.59988, "lng": 72.82097, "floor_z": 1 },
+    "verification_status": "UNVERIFIED",
+    "data_status": "DEMO_ONLY",
+    "warning": "Prototype position — exact indoor location not physically verified."
+  },
+  {
+    "id": "demo_node_a7_f2_r639",
+    "building_id": "bldg_a7",
+    "floor": 2,
+    "name": "Room 639 - Project Innovation Lab",
+    "type": "lab",
+    "coordinates": { "lat": 22.59996, "lng": 72.82106, "floor_z": 2 },
+    "verification_status": "UNVERIFIED",
+    "data_status": "DEMO_ONLY",
+    "warning": "Prototype position — exact indoor location not physically verified."
+  },
+  {
+    "id": "demo_node_a7_f2_r640",
+    "building_id": "bldg_a7",
+    "floor": 2,
+    "name": "Room 640 - CSPIT Block 2 Seminar Hall",
+    "type": "seminar_hall",
+    "coordinates": { "lat": 22.59998, "lng": 72.82108, "floor_z": 2 },
+    "verification_status": "UNVERIFIED",
+    "data_status": "DEMO_ONLY",
+    "warning": "Prototype position — exact indoor location not physically verified."
+  }
+]
