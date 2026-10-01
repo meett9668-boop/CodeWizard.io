@@ -155,6 +155,20 @@ class CampusService {
       instructions
     };
   }
+
+  saveIssueReport(issueData) {
+    const report = {
+      id: 'issue_' + Date.now(),
+      category: issueData.category || 'General',
+      building: issueData.building || 'N/A',
+      location: issueData.location || 'N/A',
+      description: issueData.description,
+      status: 'OPEN',
+      submitted_at: new Date().toISOString()
+    };
+    console.log('[Issue Report Submitted]', report);
+    return report;
+  }
 }
 
 module.exports = new CampusService();

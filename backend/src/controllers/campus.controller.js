@@ -89,3 +89,20 @@ exports.calculateRoute = (req, res, next) => {
     next(err);
   }
 };
+
+exports.reportIssue = (req, res, next) => {
+  try {
+    const { category, building, location, description } = req.body;
+    if (!description || !description.trim()) {
+      return res.status(400).json({
+        success: false,
+        error: { code: 'INVALID_INPUT', message: 'Description is required to submit an issue report.' }
+      });
+    }
+
+    const issueReport = campusService.saveIssueReport({ category, building, location, description });
+    res.json({ success: true, message: 'Issue reported successfully', issue: issueReport });
+  } catch (err) {
+    next(err);
+  }
+};

@@ -15,4 +15,7 @@ router.get('/locations/:id', campusController.getLocationById);
 // Route calculation endpoint
 router.post('/routes', campusController.calculateRoute);
 
+// Issue reporting endpoint
+router.post('/issues', campusController.reportIssue);
+
 module.exports = router;
