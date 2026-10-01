@@ -234,8 +234,56 @@
             position: absolute;
             left: 0;
             font-family: var(--font-serif);
-            font-size: 1.5rem;
-            color: var(--accent);
+        .mobile-menu-btn {
+            display: none;
+            background: transparent;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-dark);
+            padding: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: var(--nav-height);
+                left: 0;
+                right: 0;
+                background: var(--bg-primary);
+                flex-direction: column;
+                gap: 0;
+                border-bottom: 1px solid var(--border-color);
+                display: none;
+                box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            }
+
+            .nav-links.show {
+                display: flex;
+            }
+
+            .nav-links li a {
+                display: block;
+                padding: 14px 20px;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .hero {
+                padding: 60px 0;
+            }
+
+            .card {
+                padding: 32px 20px;
+            }
         }
     </style>
 </head>
@@ -245,13 +293,14 @@
     <nav class="navbar">
         <div class="nav-container">
             <a href="index.html" class="nav-logo">CAMPUSLY</a>
-            <ul class="nav-links">
+            <ul class="nav-links" id="navLinks">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="navigate.html">Navigate</a></li>
                 <li><a href="buildings.html">Buildings</a></li>
                 <li><a href="accessibility.html" class="active">Accessibility</a></li>
                 <li><a href="about.html">About</a></li>
             </ul>
+            <button class="mobile-menu-btn" onclick="document.getElementById('navLinks').classList.toggle('show')">☰</button>
         </div>
     </nav>
 

@@ -355,6 +355,92 @@
       color: var(--bg-white);
       border-color: var(--color-accent);
     }
+
+    /* Mobile Hamburger & Responsive Breakpoints */
+    .mobile-menu-btn {
+      display: none;
+      background: transparent;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: var(--color-dark);
+      padding: 4px;
+    }
+
+    @media (max-width: 900px) {
+      .featured-card {
+        flex-direction: column;
+      }
+      .featured-img {
+        border-right: none;
+        border-bottom: 1px solid var(--color-border);
+        padding: 24px;
+      }
+      .featured-content {
+        padding: 32px 24px;
+      }
+      .bldg-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 0 16px;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        background: var(--bg-white);
+        flex-direction: column;
+        gap: 0;
+        border-bottom: 1px solid var(--color-border);
+        display: none;
+        box-shadow: var(--shadow-md);
+      }
+
+      .nav-links.show {
+        display: flex;
+      }
+
+      .nav-link {
+        padding: 14px 20px;
+        border-bottom: 1px solid var(--color-border);
+      }
+
+      .page-header {
+        padding: 48px 20px;
+      }
+
+      .header-title {
+        font-size: 32px;
+      }
+
+      .container {
+        padding: 32px 16px;
+      }
+
+      .bldg-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .bldg-actions {
+        flex-direction: column;
+      }
+
+      .tabs {
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -362,12 +448,13 @@
   <!-- Navbar -->
   <nav class="navbar">
     <a href="index.html" class="nav-brand">CAMPUSLY</a>
-    <div class="nav-links">
+    <div class="nav-links" id="navLinks">
       <a href="navigate.html" class="nav-link">Navigate</a>
       <a href="buildings.html" class="nav-link active">Buildings</a>
       <a href="accessibility.html" class="nav-link">Accessibility</a>
       <a href="about.html" class="nav-link">About</a>
     </div>
+    <button class="mobile-menu-btn" onclick="document.getElementById('navLinks').classList.toggle('show')">☰</button>
   </nav>
 
   <!-- Page Header -->

@@ -87,6 +87,77 @@
         .scope-list li { padding: 16px 0; border-bottom: 1px solid var(--border-color); display: flex; }
         .scope-list li strong { width: 120px; flex-shrink: 0; color: var(--text-dark); }
         .scope-list li span { color: var(--text-secondary); }
+
+        .mobile-menu-btn {
+            display: none;
+            background: transparent;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-dark);
+            padding: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: var(--nav-height);
+                left: 0;
+                right: 0;
+                background: var(--bg-primary);
+                flex-direction: column;
+                gap: 0;
+                border-bottom: 1px solid var(--border-color);
+                display: none;
+                box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            }
+
+            .nav-links.show {
+                display: flex;
+            }
+
+            .nav-links li a {
+                display: block;
+                padding: 14px 20px;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .grid-2, .grid-2x2 {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .pipeline {
+                flex-direction: column;
+                gap: 32px;
+            }
+
+            .pipeline-arrow {
+                display: none;
+            }
+
+            .hero, .quote-section {
+                padding: 60px 0;
+            }
+
+            .vis-stats {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .scope-list li {
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            .scope-list li strong {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -94,13 +165,14 @@
     <nav class="navbar">
         <div class="nav-container">
             <a href="index.html" class="nav-logo">CAMPUSLY</a>
-            <ul class="nav-links">
+            <ul class="nav-links" id="navLinks">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="navigate.html">Navigate</a></li>
                 <li><a href="buildings.html">Buildings</a></li>
                 <li><a href="accessibility.html">Accessibility</a></li>
                 <li><a href="about.html" class="active">About</a></li>
             </ul>
+            <button class="mobile-menu-btn" onclick="document.getElementById('navLinks').classList.toggle('show')">☰</button>
         </div>
     </nav>
 

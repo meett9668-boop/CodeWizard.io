@@ -570,6 +570,145 @@
       margin-bottom: 8px;
       display: inline-block;
     }
+
+    /* Mobile Hamburger & Controls */
+    .mobile-menu-btn {
+      display: none;
+      background: transparent;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: var(--color-dark);
+      padding: 4px;
+    }
+
+    .mobile-tab-bar {
+      display: none;
+      background: var(--bg-white);
+      border-top: 1px solid var(--color-border);
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 56px;
+      z-index: 1000;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .mobile-tab-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: var(--color-muted);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      flex: 1;
+      height: 100%;
+      gap: 2px;
+    }
+
+    .mobile-tab-item.active {
+      color: var(--color-accent);
+      font-weight: 600;
+    }
+
+    /* Media Queries for Tablet and Mobile Responsiveness */
+    @media (max-width: 1024px) {
+      .panel-left {
+        width: 280px;
+      }
+      .panel-right {
+        width: 280px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 0 16px;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        background: var(--bg-white);
+        flex-direction: column;
+        gap: 0;
+        border-bottom: 1px solid var(--color-border);
+        display: none;
+        box-shadow: var(--shadow-md);
+      }
+
+      .nav-links.show {
+        display: flex;
+      }
+
+      .nav-link {
+        padding: 14px 20px;
+        border-bottom: 1px solid var(--color-border);
+      }
+
+      .nav-link:hover, .nav-link.active {
+        border-bottom: 1px solid var(--color-border);
+        background: var(--bg-offwhite);
+      }
+
+      .nav-actions {
+        display: none;
+      }
+
+      .workspace {
+        flex-direction: column;
+        height: calc(100vh - 64px - 56px);
+        position: relative;
+      }
+
+      .panel-left, .panel-right {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        background: var(--bg-white);
+        z-index: 50;
+        display: none;
+      }
+
+      .panel-left.active, .panel-right.active {
+        display: flex;
+      }
+
+      .map-container {
+        width: 100%;
+        height: 100%;
+      }
+
+      .mobile-tab-bar {
+        display: flex;
+      }
+
+      .floor-selector {
+        right: 12px;
+        top: 20px;
+        transform: none;
+      }
+
+      .modal {
+        width: 90%;
+        max-width: 400px;
+        padding: 24px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -577,7 +716,7 @@
   <!-- Navbar -->
   <nav class="navbar">
     <a href="index.html" class="nav-brand">CAMPUSLY</a>
-    <div class="nav-links">
+    <div class="nav-links" id="navLinks">
       <a href="navigate.html" class="nav-link active">Navigate</a>
       <a href="buildings.html" class="nav-link">Buildings</a>
       <a href="accessibility.html" class="nav-link">Accessibility</a>
@@ -586,13 +725,14 @@
     <div class="nav-actions">
       <button class="btn btn-outline" onclick="openModal('issueModal')">Report Issue</button>
     </div>
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
   </nav>
 
   <!-- Workspace -->
   <main class="workspace">
     
     <!-- Left Panel -->
-    <aside class="panel-left">
+    <aside class="panel-left" id="panelLeft">
       <!-- Search -->
       <div class="panel-section">
         <span class="section-label">Find Your Destination</span>
@@ -678,7 +818,7 @@
     </section>
 
     <!-- Right Panel -->
-    <aside class="panel-right">
+    <aside class="panel-right" id="panelRight">
       <div class="panel-section">
         <span class="section-label">Active Route</span>
         <div class="summary-card">
@@ -711,6 +851,22 @@
 
   </main>
 
+  <!-- Mobile Bottom Tab Navigation -->
+  <div class="mobile-tab-bar">
+    <button class="mobile-tab-item active" id="tabMap" onclick="switchMobileView('map')">
+      <span>🗺️</span>
+      <span>Map</span>
+    </button>
+    <button class="mobile-tab-item" id="tabSearch" onclick="switchMobileView('search')">
+      <span>🔍</span>
+      <span>Search</span>
+    </button>
+    <button class="mobile-tab-item" id="tabSteps" onclick="switchMobileView('steps')">
+      <span>🧭</span>
+      <span>Directions</span>
+    </button>
+  </div>
+
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
     let currentMode = 'SHORTEST';
@@ -728,6 +884,37 @@
     }).addTo(map);
 
     L.control.zoom({ position: 'bottomleft' }).addTo(map);
+
+    // Mobile Navigation & View Helpers
+    function toggleMobileMenu() {
+      const navLinks = document.getElementById('navLinks');
+      navLinks.classList.toggle('show');
+    }
+
+    function switchMobileView(view) {
+      const panelLeft = document.getElementById('panelLeft');
+      const panelRight = document.getElementById('panelRight');
+      const tabMap = document.getElementById('tabMap');
+      const tabSearch = document.getElementById('tabSearch');
+      const tabSteps = document.getElementById('tabSteps');
+
+      [tabMap, tabSearch, tabSteps].forEach(t => t && t.classList.remove('active'));
+
+      if (view === 'map') {
+        panelLeft.classList.remove('active');
+        panelRight.classList.remove('active');
+        tabMap.classList.add('active');
+        setTimeout(() => map.invalidateSize(), 200);
+      } else if (view === 'search') {
+        panelLeft.classList.add('active');
+        panelRight.classList.remove('active');
+        tabSearch.classList.add('active');
+      } else if (view === 'steps') {
+        panelLeft.classList.remove('active');
+        panelRight.classList.add('active');
+        tabSteps.classList.add('active');
+      }
+    }
 
     // Initial Route Fetch
     window.addEventListener('load', () => {
